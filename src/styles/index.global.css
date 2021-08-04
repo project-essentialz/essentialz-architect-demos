@@ -61,13 +61,4 @@
   .wrapper {
     width: 100%;
   }
-  .todo-field {
-    width: 50%;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .todo-field {
-    width: 30%;
-  }
 }
