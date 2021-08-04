@@ -1,12 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter,
+          Route } from 'react-router-dom';
 
-import './index.css';
+import './styles/index.global.css';
 
 import reportWebVitals from './reportWebVitals';
 
+import TodoApp from './todo/index';
+
 ReactDOM.render(
   <React.StrictMode>
+    <BrowserRouter>
+      <Route path="/todo" component={TodoApp} />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
