@@ -1,0 +1,100 @@
+/* Global scope classes */
+.wrapper {
+  margin: auto;
+  width: 50%;
+  height: 600px;
+  padding: 10px;
+}
+
+.list-wrapper {
+  height: 80%;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.input-wrapper {
+  height: 4%;
+  padding: 20px;
+}
+
+.container {
+  border: 2px solid #ececec;
+  background-color: #ececec;
+  border-radius: 20px;
+  height: 100%;
+  padding: 20px;
+}
+
+.op-button {
+  float: right;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 10px;
+  border: grey;
+  padding: 5px;
+}
+
+.data-container {
+  padding-top: 15px;
+}
+
+.hidden {
+  display: none;
+}
+
+.scroll {
+  overflow-y: scroll;
+}
+
+.bg-dark {
+  background-color: #c5c5c5;
+}
+
+/* Todo app styling */
+/* TOOD: put this inside an module */
+.todo-element {
+  width: 100%;
+  margin: auto;
+  height: 50px;
+  margin-bottom: 50px;
+}
+
+.todo-field {
+  width: 65%;
+  border: none;
+  background-color: #c5c5c5;
+  outline: none;
+  font-size: 18px;
+  text-overflow: ellipsis;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  overflow-y: auto;
+}
+
+.todo-input {
+  width: 60%;
+  padding: 5px;
+  border: grey;
+  border-radius: 20px;
+}
+
+/* Responsivity */
+@media screen and (max-width: 1000px) {
+  .wrapper {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .wrapper {
+    width: 100%;
+  }
+  .todo-field {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .todo-field {
+    width: 30%;
+  }
+}
