@@ -9,12 +9,12 @@ import './styles/index.global.css';
 
 import reportWebVitals from './reportWebVitals';
 
-import TodoApp from './todo/index';
+import TodoAppContainer from './containers/index';
 
 ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>
-			<Route path="/todo" component={TodoApp} />
+			<Route path="/todo" component={TodoAppContainer} />
 		</BrowserRouter>
 	</React.StrictMode>,
 	document.getElementById('root')
