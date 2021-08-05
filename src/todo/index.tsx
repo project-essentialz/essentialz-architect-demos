@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
+// Styles
 import styles from '../styles/todo.module.css';
 
+// Architect client
 import architect from '../services/architect';
 
+// Types
+import { TodoDataType } from '../types/types';
+
 function TodoApp() : JSX.Element {
-	const [tasks, setTasks] = useState<any[]>([]);
+	const [tasks, setTasks] = useState<TodoDataType[]>([]);
 	const [editMenuId, showEditMenuById] = useState<any>(0);
 	const [inputValue, setInputValue] = useState<string>('');
 	const [update, shouldUpdate] = useState<any>('');
 
 	const getTasks = () : void => {
+		setTasks([]);
 		architect.tasks.getAll()
 			.then(setTasks)
 			.catch(console.error);
@@ -31,8 +36,9 @@ function TodoApp() : JSX.Element {
 
 	const updateTask = (id : string, name : string) : void => {
 		architect.tasks.update(id, { task: name })
-			.then(() => window.location.reload(false)) // TODO: Change the state here too.
+			.then(shouldUpdate)
 			.catch(console.error);
+		setInputValue('');
 	};
 
 	useEffect(() => getTasks(), [update]);
@@ -46,13 +52,13 @@ function TodoApp() : JSX.Element {
 							<div className="container bg-dark">
 								<div className={`data-container ${editMenuId === task.id && 'hidden'}`}>
 									<input className={styles.todoField} defaultValue={task.task} readOnly />
-									<input className="op-button" onClick={() => removeTask(task.id)} type="button" defaultValue="Remove" />
-									<input className="op-button" onClick={() => { setInputValue(task.task); showEditMenuById(task.id); }} type="button" defaultValue="Edit" />
+									<input className="op-button" type="button" defaultValue="Remove" onClick={() => removeTask(task.id)} />
+									<input className="op-button" type="button" defaultValue="Edit" onClick={() => { setInputValue(task.task); showEditMenuById(task.id); }} />
 								</div>
 								<div className={`data-container ${editMenuId !== task.id && 'hidden'}`}>
-									<input onKeyUp={e => setInputValue(e.currentTarget.value)} className={styles.todoInput} defaultValue={task.task} />
-									<input onClick={() => updateTask(task.id, inputValue)} className="op-button" type="button" defaultValue="Save" />
-									<input className="op-button" onClick={() => { setInputValue(''); showEditMenuById(0); }} type="button" defaultValue="Cancel" />
+									<input className={styles.todoInput} defaultValue={task.task} onKeyUp={e => setInputValue(e.currentTarget.value)} />
+									<input className="op-button" type="button" defaultValue="Save" onClick={() => { updateTask(task.id, inputValue); showEditMenuById(0); }} />
+									<input className="op-button" type="button" defaultValue="Cancel" onClick={() => { setInputValue(''); showEditMenuById(0); }} />
 								</div>
 							</div>
 						</div>
@@ -61,8 +67,8 @@ function TodoApp() : JSX.Element {
 			</div>
 			<div className="input-wrapper">
 				<div className="container">
-					<input onKeyUp={e => setInputValue(e.currentTarget.value)} className={styles.todoInput} type="text" placeholder="Add task..." />
-					<input onClick={() => addTask(inputValue)} className="op-button" type="button" defaultValue="Add" />
+					<input type="text" placeholder="Add task..." onKeyUp={e => setInputValue(e.currentTarget.value)} className={styles.todoInput} />
+					<input className="op-button" type="button" defaultValue="Add" onClick={() => addTask(inputValue)} />
 				</div>
 			</div>
 		</div>
