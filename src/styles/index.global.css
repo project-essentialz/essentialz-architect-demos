@@ -32,6 +32,8 @@
   border-radius: 10px;
   border: grey;
   padding: 5px;
+  width: 70px;
+  background-color: #ffffff;
 }
 
 .data-container {
