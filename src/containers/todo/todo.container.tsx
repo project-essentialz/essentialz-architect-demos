@@ -14,7 +14,7 @@ import {
 	Container,
 } from '../../components/index';
 
-const TodoAppContainer = () => {
+export const TodoAppContainer = () => {
 	const [tasks, setTasks] = useState<Task[]>([]);
 	const [editMenuId, showEditMenuById] = useState<any>(0);
 
@@ -42,7 +42,7 @@ const TodoAppContainer = () => {
 	const updateTask = (id : string, name : string) : void => {
 		architect.tasks
 			.update(id, { task: name })
-			.then(() => getTasks())
+			.then(getTasks)
 			.catch(console.error);
 	};
 
@@ -53,6 +53,7 @@ const TodoAppContainer = () => {
 			<Container>
 				{tasks.map(task => (
 					<TaskElement
+						key={task.id}
 						task={task}
 						menuId={editMenuId}
 						menuIdStateController={showEditMenuById}
@@ -67,5 +68,3 @@ const TodoAppContainer = () => {
 		</Wrapper>
 	);
 };
-
-export default TodoAppContainer;

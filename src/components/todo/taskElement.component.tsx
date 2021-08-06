@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from '../../styles/todo.module.css';
 
@@ -23,11 +23,15 @@ const TaskElement = (props : TaskElementProps) => {
 		deleteAPI,
 	} = props;
 
+	useEffect(() => {
+		console.log(task);
+	}, [task]);
+
 	return (
-		<div key={task.id} className={styles.todoElement}>
+		<div className={styles.todoElement}>
 			<div className="container bg-dark">
 				<div className={`data-container ${menuId === task.id && 'hidden'}`}>
-					<input className={styles.todoField} defaultValue={task.task} readOnly />
+					<input className={styles.todoField} value={task.task || ''} readOnly />
 					<input className="op-button" type="button" defaultValue="Remove" onClick={() => deleteAPI(task.id)} />
 					<input className="op-button" type="button" defaultValue="Edit" onClick={() => { setInputValue(task.task); menuIdStateController(task.id); }} />
 				</div>
