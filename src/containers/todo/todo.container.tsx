@@ -16,7 +16,7 @@ import {
 
 export const TodoAppContainer = () => {
 	const [tasks, setTasks] = useState<Task[]>([]);
-	const [editMenuId, showEditMenuById] = useState<any>(0);
+	const [activeTask, setActiveTask] = useState<Task>();
 
 	const getTasks = () : void => {
 		architect.tasks
@@ -55,8 +55,7 @@ export const TodoAppContainer = () => {
 					<TaskElement
 						key={task.id}
 						task={task}
-						menuId={editMenuId}
-						menuIdStateController={showEditMenuById}
+						isInEditMode={task.id === activeTask.id}
 						updateAPI={updateTask}
 						deleteAPI={deleteTask}
 					/>
