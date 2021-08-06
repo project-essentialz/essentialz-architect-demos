@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Wrapper = (props : any) => {
+export const Wrapper = (props : any) => {
 	const {
 		children,
 	} = props;
@@ -8,5 +8,3 @@ const Wrapper = (props : any) => {
 		<div className="wrapper">{children}</div>
 	);
 };
-
-export default Wrapper;

@@ -1,7 +1,9 @@
 import architect, { ArchitectResource } from 'architect-sdk';
 
+import { Task } from '../types/types';
+
 type ArchitectSchema = {
-	tasks: ArchitectResource;
+	tasks: ArchitectResource<Task>;
 }
 
 const client = architect<ArchitectSchema>({

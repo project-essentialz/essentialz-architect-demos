@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Container = (props : any) => {
+export const Container = (props : any) => {
 	const {
 		children,
 	} = props;
@@ -8,5 +8,3 @@ const Container = (props : any) => {
 		<div className="container scroll">{children}</div>
 	);
 };
-
-export default Container;

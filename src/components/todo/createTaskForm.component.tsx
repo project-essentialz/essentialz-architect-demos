@@ -1,23 +1,43 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 import styles from '../../styles/todo.module.css';
 
 type CreateTaskFormProps = {
-	onAddClicked: (input : string) => void;
+	onSubmit: (input : string) => void;
 }
 
 const CreateTaskForm = (props : CreateTaskFormProps) : JSX.Element => {
-	const [inputValue, setInputValue] = useState('');
+	const { onSubmit } = props;
 
-	const {
-		onAddClicked,
-	} = props;
+	const [inputValue, setInputValue] = useState<string>('');
+
+	const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+		setInputValue(event.target.value);
+	};
+
+	const onAddClick = () => {
+		if (inputValue.length > 0) {
+			onSubmit(inputValue);
+			setInputValue('');
+		}
+	};
 
 	return (
 		<div className="input-wrapper">
 			<div className="container">
-				<input type="text" placeholder="Add task..." onKeyUp={e => setInputValue(e.currentTarget.value)} className={styles.todoInput} />
-				<input className="op-button" type="button" defaultValue="Add" onClick={() => onAddClicked(inputValue)} />
+				<input
+					type="text"
+					placeholder="Add task..."
+					value={inputValue}
+					onChange={onInputChange}
+					className={styles.todoInput}
+				/>
+				<input
+					className="op-button"
+					type="button"
+					defaultValue="Add"
+					onClick={onAddClick}
+				/>
 			</div>
 		</div>
 	);

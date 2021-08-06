@@ -8,15 +8,13 @@ import { Task } from '../../types/types';
 
 // Components
 import {
-	CreateTaskForm,
-	TaskElement,
+	Todo,
 	Wrapper,
 	Container,
 } from '../../components/index';
 
 export const TodoAppContainer = () => {
 	const [tasks, setTasks] = useState<Task[]>([]);
-	const [activeTask, setActiveTask] = useState<string>('');
 
 	const getTasks = () : void => {
 		architect.tasks
@@ -32,20 +30,17 @@ export const TodoAppContainer = () => {
 			.catch(console.error);
 	};
 
-	const createTask = (name : string) : void => {
+	const createTask = (description : string) : void => {
 		architect.tasks
-			.create({ task: name })
+			.create({ description })
 			.then(getTasks)
 			.catch(console.error);
 	};
 
-	const updateTask = (id : string, name : string) : void => {
+	const updateTask = (id : string, description : string) : void => {
 		architect.tasks
-			.update(id, { task: name })
-			.then(() => {
-				getTasks();
-				setActiveTask('');
-			})
+			.update(id, { description })
+			.then(getTasks)
 			.catch(console.error);
 	};
 
@@ -55,19 +50,16 @@ export const TodoAppContainer = () => {
 		<Wrapper>
 			<Container>
 				{tasks.map(task => (
-					<TaskElement
+					<Todo.TaskElement
 						key={task.id}
 						task={task}
-						isInEditMode={activeTask === task.id}
-						onUpdateClicked={updateTask}
-						onDeleteClicked={deleteTask}
-						onEditClicked={(id : string) => setActiveTask(id)}
-						onCancel={() => setActiveTask('')}
+						onUpdate={updateTask}
+						onDelete={deleteTask}
 					/>
 				))}
 			</Container>
-			<CreateTaskForm
-				onAddClicked={createTask}
+			<Todo.CreateTaskForm
+				onSubmit={createTask}
 			/>
 		</Wrapper>
 	);

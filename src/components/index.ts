@@ -1,10 +1,4 @@
-import { TaskElement, CreateTaskForm } from './todo/index';
-import Wrapper from './Wrapper.component';
-import Container from './Container.component';
+export * as Todo from './todo';
 
-export {
-	CreateTaskForm,
-	TaskElement,
-	Wrapper,
-	Container,
-};
+export * from './wrapper.component';
+export * from './container.component';
