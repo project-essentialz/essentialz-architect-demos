@@ -6,13 +6,13 @@ export type Task = {
 };
 
 export type Contact = {
-	id: string;
+	id?: string;
 	pictureUrl: string;
 	firstName: string;
 	lastName: string;
 	phone: string;
 	email: string;
 	meta?: Record<string, any>
-	updatedAt: number;
-	createdAt: string;
+	updatedAt?: number;
+	createdAt?: string;
 };

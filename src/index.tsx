@@ -9,12 +9,20 @@ import './styles/index.global.css';
 
 import reportWebVitals from './reportWebVitals';
 
-import TodoAppContainer from './containers/index';
+import {
+	TodoAppContainer,
+	ContactListingContainer,
+	CreateContactFormContainer,
+	ContactProfileContainer,
+} from './containers/index';
 
 ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>
-			<Route path="/todo" component={TodoAppContainer} />
+			<Route exact path="/todo" component={TodoAppContainer} />
+			<Route exact path="/contacts" component={ContactListingContainer} />
+			<Route exact path="/contacts/create" component={CreateContactFormContainer} />
+			<Route exact path="/contact/:id" component={ContactProfileContainer} />
 		</BrowserRouter>
 	</React.StrictMode>,
 	document.getElementById('root')
