@@ -3,6 +3,10 @@ import React from 'react';
 // Styles
 import styles from '../../styles/contact.module.css';
 
+// Components
+import { Image } from './image.component';
+import { Button } from './button.component';
+
 type ContactElementProps = {
 	id: string;
 	firstName: string;
@@ -23,32 +27,38 @@ export const ContactElement = (props : ContactElementProps) => {
 	} = props;
 
 	return (
-		<tr>
-			<td>
-				<img
+		<>
+			<div
+				className={styles.textWrapper}
+			>
+				<Image
+					size={100}
 					src={pictureUrl}
-					alt="contact"
-					className={styles.contactImage}
 				/>
-			</td>
-			<td>
-				{firstName}
-				{' '}
-				{lastName}
-			</td>
-			<td>
+			</div>
+			<div
+				className={styles.textWrapper}
+			>
+				{`${firstName} ${lastName}`}
+			</div>
+			<div
+				className={styles.textWrapper}
+			>
 				{phone}
-			</td>
-			<td>
+			</div>
+			<div
+				className={styles.textWrapper}
+			>
 				{email}
-			</td>
-			<td>
-				<a
-					href={`/contact/${id}`}
-				>
-					View
-				</a>
-			</td>
-		</tr>
+			</div>
+			<div
+				className={styles.textWrapper}
+			>
+				<Button
+					value="View"
+					location={`/contact/${id}`}
+				/>
+			</div>
+		</>
 	);
 };

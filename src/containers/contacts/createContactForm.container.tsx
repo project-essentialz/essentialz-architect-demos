@@ -1,8 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-
-// Styles
-import styles from '../../styles/contact.module.css';
+import useForceUpdate from '../../hooks/useForceUpdate';
 
 // Architect
 import client from '../../services/architect';
@@ -10,10 +8,16 @@ import client from '../../services/architect';
 // Types
 import { Contact } from '../../types/types';
 
+// Components
+import { ContactElement } from '../../components';
+
 type InputField = {
 	name: string;
 	type: string;
 	label: string;
+	errorMessage: string;
+	hasError: boolean;
+	validationRule: (input : string) => boolean;
 }
 
 const inputs : InputField[] = [
@@ -21,113 +25,140 @@ const inputs : InputField[] = [
 		name: 'firstName',
 		type: 'text',
 		label: 'First name',
+		errorMessage: 'First name is required',
+		hasError: false,
+		validationRule: (input) => {
+			if (input.length === 0) {
+				return true;
+			}
+			return false;
+		},
 	},
 	{
 		name: 'lastName',
 		type: 'text',
 		label: 'Last name',
+		errorMessage: 'Last name is required',
+		hasError: false,
+		validationRule: (input) => {
+			if (input.length === 0) {
+				return true;
+			}
+			return false;
+		},
 	},
 	{
 		name: 'email',
 		type: 'email',
 		label: 'Email',
+		errorMessage: 'Email is not valid',
+		hasError: false,
+		validationRule: (input) => {
+			const emailRe = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			return !emailRe.test(input.toLowerCase());
+		},
 	},
 	{
 		name: 'phone',
 		type: 'text',
 		label: 'Phone',
+		errorMessage: 'Phone is not valid',
+		hasError: false,
+		validationRule: (input) => {
+			const phoneRe = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+			return !phoneRe.test(input);
+		},
 	},
 	{
-		name: 'pictureSrc',
+		name: 'picture',
 		type: 'file',
 		label: 'Upload contact picture',
+		errorMessage: '',
+		hasError: false,
+		validationRule: () => { return false; },
 	},
 ];
 
 export const CreateContactFormContainer = () => {
-	const [firstName, setFirstName] = useState<string>('');
-	const [lastName, setLastName] = useState<string>('');
-	const [email, setEmail] = useState<string>('');
-	const [phone, setPhone] = useState<string>('');
-	const [picture, setPicture] = useState<File>();
+	const [data, setData] = useState<InputField[]>(inputs);
+	const [formData, setFormData] = useState<Record<string, any>>({
+		firstName: '',
+		lastName: '',
+		email: '',
+		phone: '',
+		picture: '',
+	});
 	const history = useHistory();
-
-	const handleInput = (inputName: string, e: ChangeEvent<HTMLInputElement>) : void => {
-		inputName === 'firstName' && setFirstName(e.currentTarget.value);
-		inputName === 'lastName' && setLastName(e.currentTarget.value);
-		inputName === 'email' && setEmail(e.currentTarget.value);
-		inputName === 'phone' && setPhone(e.currentTarget.value);
-		inputName === 'pictureSrc' && (e.currentTarget.files && setPicture(e.currentTarget.files[0]));
-	};
+	const updateComponent = useForceUpdate();
 
 	const validateInput = () : boolean => {
-		const emailRe = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		if (firstName.length === 0 ||
-			lastName.length === 0 ||
-			email.length === 0 ||
-			phone.length === 0 ||
-			!emailRe.test(String(email).toLowerCase())) {
-			return false;
+		let validated = true;
+		for (const [i, input] of Object.entries(inputs)) {
+			input.hasError = input.validationRule(formData[Object.keys(formData)[Number(i)]]);
+			if (input.hasError) { validated = false; }
 		}
-		return true;
+		return validated;
 	};
 
-	const createContact = () => {
-		if (!validateInput()) { return; }
+	const handleInput = (e: ChangeEvent<HTMLInputElement>) : void => {
+		setFormData({ ...formData, [e.currentTarget.name]: e.currentTarget.files ? e.currentTarget.files[0] : e.currentTarget.value });
+	};
+
+	const createContact = async () => {
+		const validated = validateInput();
+		if (!validated) {
+			setData(inputs);
+			updateComponent();
+			return;
+		}
+
 		const resource : Contact = {
-			firstName,
-			lastName,
-			email,
-			phone,
+			firstName: formData.firstName,
+			lastName: formData.lastName,
+			email: formData.email,
+			phone: formData.phone,
 			pictureUrl: 'https://www.nicepng.com/png/detail/136-1366211_group-of-10-guys-login-user-icon-png.png',
 			meta: {},
 		};
-		picture && client.files
-			.upload(picture)
-			.then((data) => {
-				resource.pictureUrl = data.url;
-			})
-			.catch(console.error);
-		client.contacts
-			.create(resource)
-			.then(() => history.push('/contacts'))
-			.catch(console.error);
+
+		try {
+			if (formData.picture) {
+				const { url } = await client.files.upload(formData.picture);
+				resource.pictureUrl = url;
+			}
+			await client.contacts.create(resource);
+			history.push('/contacts');
+		} catch {
+			console.log('Error');
+		}
 	};
 
 	return (
-		<form
-			className={styles.contactFormContainer}
-		>
-			{inputs.map((input : InputField) => (
-				<div
-					className={styles.contactInputContainer}
-				>
-					<label
-						htmlFor={input.name}
-						className={styles.contactInputLabel}
-					>
-						{input.label}
-					</label>
-					<input
-						id={input.name}
-						className={input.type === 'file' ? styles.contactFileInput : styles.contactInput}
-						name={input.name}
-						type={input.type}
-						placeholder={input.label}
-						onChange={(e : ChangeEvent<HTMLInputElement>) => handleInput(input.name, e)}
-					/>
-				</div>
-			))}
-			<div
-				className={styles.contactInputContainer}
+		<>
+			<ContactElement.NavBar />
+			<ContactElement.FormWrapper
+				padding={50}
 			>
-				<input
-					onClick={() => createContact()}
-					type="button"
+				{data.map((input : InputField) => (
+					<ContactElement.FormControl
+						key={input.name}
+					>
+						<ContactElement.Input
+							name={input.name}
+							label={input.label}
+							type={input.type}
+							onChange={handleInput}
+							margin={0}
+							errorMessage={input.errorMessage}
+							showError={input.hasError}
+						/>
+					</ContactElement.FormControl>
+				))}
+				<ContactElement.Button
 					value="Create"
-					className={styles.contactButton}
+					onClick={createContact}
 				/>
-			</div>
-		</form>
+			</ContactElement.FormWrapper>
+		</>
 	);
 };

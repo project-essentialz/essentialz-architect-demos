@@ -25,30 +25,30 @@ export const ContactListingContainer = () => {
 
 	return (
 		<div>
-			<a
-				href="/contacts/create"
-			>
-				Create
-			</a>
-			<table>
-				<tr>
-					<th> </th>
-					<th>Name</th>
-					<th>Phone</th>
-					<th>Email</th>
-					<th>Other</th>
-				</tr>
+			<ContactElement.NavBar />
+			<ContactElement.Table>
+				<ContactElement.TableHeaders>
+					<div> </div>
+					<div>Name</div>
+					<div>Phone</div>
+					<div>Email</div>
+					<div>Other</div>
+				</ContactElement.TableHeaders>
 				{contacts.map((contact : Contact) => (
-					<ContactElement.ContactElement
-						id={contact.id || ''}
-						firstName={contact.firstName}
-						lastName={contact.lastName}
-						phone={contact.phone}
-						email={contact.email}
-						pictureUrl={contact.pictureUrl}
-					/>
+					<ContactElement.TableRow
+						key={contact.id}
+					>
+						<ContactElement.ContactElement
+							id={contact.id || ''}
+							firstName={contact.firstName}
+							lastName={contact.lastName}
+							phone={contact.phone}
+							email={contact.email}
+							pictureUrl={contact.pictureUrl}
+						/>
+					</ContactElement.TableRow>
 				))}
-			</table>
+			</ContactElement.Table>
 		</div>
 	);
 };

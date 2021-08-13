@@ -10,6 +10,9 @@ import client from '../../services/architect';
 // Types
 import { Contact } from '../../types/types';
 
+// Components
+import { ContactElement } from '../../components';
+
 export const ContactProfileContainer = (props : any) => {
 	const { match } = props;
 
@@ -51,66 +54,82 @@ export const ContactProfileContainer = (props : any) => {
 	useEffect(() => getContact(), []);
 
 	return (
-		<div>
+		<>
+			<ContactElement.NavBar />
 			{editMode ? (
-				<div
-					className={styles.contactFormContainer}
+				<ContactElement.FormWrapper
+					padding={30}
 				>
-					<div
-						className={styles.contactInputContainer}
-					>
-						<input className={styles.contactInput} defaultValue={contact?.firstName} onChange={e => setFirstName(e.currentTarget.value)} />
-					</div>
-					<div
-						className={styles.contactInputContainer}
-					>
-						<input className={styles.contactInput} defaultValue={contact?.lastName} onChange={e => setLastName(e.currentTarget.value)} />
-					</div>
-					<div
-						className={styles.contactInputContainer}
-					>
-						<input className={styles.contactInput} defaultValue={contact?.phone} onChange={e => setPhone(e.currentTarget.value)} />
-					</div>
-					<div
-						className={styles.contactInputContainer}
-					>
-						<input className={styles.contactInput} defaultValue={contact?.email} onChange={e => setEmail(e.currentTarget.value)} />
-					</div>
-					<div
-						className={styles.contactInputContainer}
-					>
-						<input className={styles.contactButton} type="button" value="Save" onClick={editContact} />
-					</div>
-					<div
-						className={styles.contactInputContainer}
-					>
-						<input className={styles.contactButton} type="button" value="Cancel" onClick={() => setEditMode(false)} />
-					</div>
-				</div>
+					<ContactElement.Input
+						value={contact?.firstName}
+						name="firstName"
+						label="First name"
+						type="text"
+						onChange={(e) => {
+							setFirstName(e.currentTarget.value);
+						}}
+					/>
+					<ContactElement.Input
+						value={contact?.lastName}
+						name="lastName"
+						label="Last name"
+						type="text"
+						onChange={(e) => {
+							setLastName(e.currentTarget.value);
+						}}
+					/>
+					<ContactElement.Input
+						value={contact?.phone}
+						name="phone"
+						label="Phone"
+						type="text"
+						onChange={(e) => {
+							setPhone(e.currentTarget.value);
+						}}
+					/>
+					<ContactElement.Input
+						value={contact?.email}
+						name="email"
+						label="Email"
+						type="text"
+						onChange={(e) => {
+							setEmail(e.currentTarget.value);
+						}}
+					/>
+					<ContactElement.Button
+						value="Save"
+						onClick={editContact}
+					/>
+					<ContactElement.Button
+						value="Cancel"
+						onClick={() => setEditMode(false)}
+					/>
+				</ContactElement.FormWrapper>
 			) : (
-				<div
-					className={styles.contactFormContainer}
+				<ContactElement.FormWrapper
+					padding={50}
 				>
+					<ContactElement.Image
+						src={contact?.pictureUrl || ''}
+						size={300}
+						centered
+					/>
 					<p className={styles.contactProfileText}>{contact?.firstName}</p>
 					<p className={styles.contactProfileText}>{contact?.lastName}</p>
 					<p className={styles.contactProfileText}>{contact?.phone}</p>
 					<p className={styles.contactProfileText}>{contact?.email}</p>
-					<div
-						className={styles.contactInputContainer}
-					>
-						<input className={styles.contactButton} type="button" value="Edit" onClick={() => setEditMode(true)} />
-					</div>
-				</div>
+					<ContactElement.Button
+						value="Edit"
+						onClick={() => setEditMode(true)}
+					/>
+				</ContactElement.FormWrapper>
 			)}
-			<div
-				className={styles.contactFormContainer}
-			>
-				<div
-					className={styles.contactInputContainer}
-				>
-					<input className={styles.contactButton} type="button" value="Delete" onClick={deleteContact} />
-				</div>
-			</div>
-		</div>
+			<ContactElement.FormWrapper>
+				<ContactElement.Button
+					value="Delete"
+					onClick={deleteContact}
+				/>
+			</ContactElement.FormWrapper>
+		</>
 	);
 };
