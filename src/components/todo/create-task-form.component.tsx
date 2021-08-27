@@ -2,6 +2,14 @@ import React, { ChangeEvent, useState } from 'react';
 
 import styles from '../../styles/todo.module.css';
 
+import {
+	Input,
+	Button,
+	Container,
+	Wrapper,
+	Form,
+} from '..';
+
 type CreateTaskFormProps = {
 	onSubmit: (input : string) => void;
 }
@@ -15,7 +23,8 @@ const CreateTaskForm = (props : CreateTaskFormProps) : JSX.Element => {
 		setInputValue(event.target.value);
 	};
 
-	const onAddClick = () => {
+	const submit = (e : React.FormEvent) => {
+		e.preventDefault();
 		if (inputValue.length > 0) {
 			onSubmit(inputValue);
 			setInputValue('');
@@ -23,23 +32,29 @@ const CreateTaskForm = (props : CreateTaskFormProps) : JSX.Element => {
 	};
 
 	return (
-		<div className="input-wrapper">
-			<div className="container">
-				<input
-					type="text"
-					placeholder="Add task..."
-					value={inputValue}
-					onChange={onInputChange}
-					className={styles.todoInput}
-				/>
-				<input
-					className="op-button"
-					type="button"
-					defaultValue="Add"
-					onClick={onAddClick}
-				/>
-			</div>
-		</div>
+		<Wrapper
+			className="input-wrapper"
+		>
+			<Container>
+				<Form
+					onSubmit={submit}
+				>
+					<Input
+						type="text"
+						placeholder="Add task..."
+						value={inputValue}
+						onChange={onInputChange}
+						className={styles.todoInput}
+					/>
+					<Button
+						className="op-button"
+						type="submit"
+					>
+						Add
+					</Button>
+				</Form>
+			</Container>
+		</Wrapper>
 	);
 };
 
