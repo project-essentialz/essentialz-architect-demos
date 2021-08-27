@@ -5,12 +5,12 @@ import {
 	Contact,
 } from '../types/types';
 
-type ArchitectSchema = {
+export type ArchitectSchema = {
 	tasks: ArchitectResource<Task>;
 	contacts: ArchitectResource<Contact>;
 }
 
-const client = architect<ArchitectSchema>({
+export const client = architect<ArchitectSchema>({
 	baseUrl: process.env.REACT_APP_ARCHITECT_PROJECT_URL ?? '',
 });
 

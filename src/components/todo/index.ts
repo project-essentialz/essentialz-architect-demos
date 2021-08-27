@@ -1,5 +1,5 @@
-import CreateTaskForm from './createTaskForm.component';
-import TaskElement from './taskElement.component';
+import CreateTaskForm from './create-task-form.component';
+import TaskElement from './task-element.component';
 
 export {
 	CreateTaskForm,
