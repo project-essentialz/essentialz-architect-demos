@@ -4,8 +4,8 @@ import React from 'react';
 import styles from '../../styles/contact.module.css';
 
 // Components
-import { Image } from './image.component';
-import { Button } from './button.component';
+import { Image } from '..';
+import { Link } from 'react-router-dom';
 
 type ContactElementProps = {
 	id: string;
@@ -32,7 +32,7 @@ export const ContactElement = (props : ContactElementProps) => {
 				className={styles.textWrapper}
 			>
 				<Image
-					size={100}
+					width={100}
 					src={pictureUrl}
 				/>
 			</div>
@@ -54,10 +54,9 @@ export const ContactElement = (props : ContactElementProps) => {
 			<div
 				className={styles.textWrapper}
 			>
-				<Button
-					value="View"
-					location={`/contact/${id}`}
-				/>
+				<Link to={`/contact/${id}`}>
+					View
+				</Link>
 			</div>
 		</>
 	);

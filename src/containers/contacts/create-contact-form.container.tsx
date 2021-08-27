@@ -3,13 +3,18 @@ import { useHistory } from 'react-router-dom';
 import useForceUpdate from '../../hooks/useForceUpdate';
 
 // Architect
-import client from '../../services/architect';
+import client from '../../services/architect.service';
 
 // Types
 import { Contact } from '../../types/types';
 
 // Components
-import { ContactElement } from '../../components';
+import {
+	ContactElement,
+	Form,
+	Input,
+	Button,
+} from '../../components';
 
 type InputField = {
 	name: string;
@@ -134,31 +139,21 @@ export const CreateContactFormContainer = () => {
 	};
 
 	return (
-		<>
-			<ContactElement.NavBar />
-			<ContactElement.FormWrapper
-				padding={50}
-			>
-				{data.map((input : InputField) => (
-					<ContactElement.FormControl
-						key={input.name}
-					>
-						<ContactElement.Input
-							name={input.name}
-							label={input.label}
-							type={input.type}
-							onChange={handleInput}
-							margin={0}
-							errorMessage={input.errorMessage}
-							showError={input.hasError}
-						/>
-					</ContactElement.FormControl>
-				))}
-				<ContactElement.Button
-					value="Create"
-					onClick={createContact}
+		<Form>
+			{data.map((input : InputField) => (
+				<Input
+					name={input.name}
+					label={input.label}
+					type={input.type}
+					onChange={handleInput}
 				/>
-			</ContactElement.FormWrapper>
-		</>
+			))}
+			<Button
+				value="Create"
+				onClick={createContact}
+			>
+				Create
+			</Button>
+		</Form>
 	);
 };

@@ -1,6 +1,6 @@
-import { ContactListingContainer } from './contactListing.container';
-import { CreateContactFormContainer } from './createContactForm.container';
-import { ContactProfileContainer } from './contactProfile.container';
+import { ContactListingContainer } from './contact-listing.container';
+import { CreateContactFormContainer } from './create-contact-form.container';
+import { ContactProfileContainer } from './contact-profile.container';
 
 export {
 	ContactListingContainer,

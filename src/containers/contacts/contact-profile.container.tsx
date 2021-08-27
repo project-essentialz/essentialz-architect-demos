@@ -5,16 +5,23 @@ import { useHistory } from 'react-router-dom';
 import styles from '../../styles/contact.module.css';
 
 // Architect
-import client from '../../services/architect';
+import { CRUDService } from '../../services/api.service';
 
 // Types
 import { Contact } from '../../types/types';
 
 // Components
-import { ContactElement } from '../../components';
+import {
+	ContactElement,
+	Form,
+	Input,
+	Button,
+	Image,
+} from '../../components';
 
 export const ContactProfileContainer = (props : any) => {
 	const { match } = props;
+	const crud = new CRUDService('contacts');
 
 	const [contact, setContact] = useState<Contact>();
 	const [editMode, setEditMode] = useState<boolean>(false);
@@ -27,27 +34,32 @@ export const ContactProfileContainer = (props : any) => {
 	const contactId : string = match?.params.id;
 
 	const getContact = () : void => {
-		client.contacts
-			.get(contactId)
-			.then(setContact)
-			.catch(console.error);
+		crud.get({
+			onSuccess: (data : any) => setContact(data),
+			onError: (error : any) => console.error(error),
+		});
 	};
 
 	const deleteContact = () : void => {
-		client.contacts
-			.delete(contactId)
-			.then(() => history.push('/contacts'));
+		crud.delete({
+			id: contactId,
+			onSuccess: (data : any) => history.push('/contacts'),
+			onError: (error : any) => console.error(error),
+		});
 	};
 
 	const editContact = () : void => {
-		client.contacts
-			.update(contactId, {
+		crud.update({
+			id: contactId,
+			description: {
 				firstName,
 				lastName,
 				phone,
 				email,
-			})
-			.then(getContact);
+			},
+			onSuccess: (data : any) => getContact(),
+			onError: (error : any) => console.error(error),
+		});
 		setEditMode(false);
 	};
 
@@ -55,12 +67,9 @@ export const ContactProfileContainer = (props : any) => {
 
 	return (
 		<>
-			<ContactElement.NavBar />
 			{editMode ? (
-				<ContactElement.FormWrapper
-					padding={30}
-				>
-					<ContactElement.Input
+				<Form>
+					<Input
 						value={contact?.firstName}
 						name="firstName"
 						label="First name"
@@ -69,7 +78,7 @@ export const ContactProfileContainer = (props : any) => {
 							setFirstName(e.currentTarget.value);
 						}}
 					/>
-					<ContactElement.Input
+					<Input
 						value={contact?.lastName}
 						name="lastName"
 						label="Last name"
@@ -78,7 +87,7 @@ export const ContactProfileContainer = (props : any) => {
 							setLastName(e.currentTarget.value);
 						}}
 					/>
-					<ContactElement.Input
+					<Input
 						value={contact?.phone}
 						name="phone"
 						label="Phone"
@@ -87,7 +96,7 @@ export const ContactProfileContainer = (props : any) => {
 							setPhone(e.currentTarget.value);
 						}}
 					/>
-					<ContactElement.Input
+					<Input
 						value={contact?.email}
 						name="email"
 						label="Email"
@@ -96,40 +105,41 @@ export const ContactProfileContainer = (props : any) => {
 							setEmail(e.currentTarget.value);
 						}}
 					/>
-					<ContactElement.Button
-						value="Save"
+					<Button
 						onClick={editContact}
-					/>
-					<ContactElement.Button
-						value="Cancel"
+					>
+						Edit
+					</Button>
+					<Button
 						onClick={() => setEditMode(false)}
-					/>
-				</ContactElement.FormWrapper>
+					>
+						Cancel
+					</Button>
+				</Form>
 			) : (
-				<ContactElement.FormWrapper
-					padding={50}
-				>
-					<ContactElement.Image
+				<Form>
+					<Image
 						src={contact?.pictureUrl || ''}
-						size={300}
-						centered
+						width={300}
 					/>
 					<p className={styles.contactProfileText}>{contact?.firstName}</p>
 					<p className={styles.contactProfileText}>{contact?.lastName}</p>
 					<p className={styles.contactProfileText}>{contact?.phone}</p>
 					<p className={styles.contactProfileText}>{contact?.email}</p>
-					<ContactElement.Button
-						value="Edit"
+					<Button
 						onClick={() => setEditMode(true)}
-					/>
-				</ContactElement.FormWrapper>
+					>
+						Edit
+					</Button>
+				</Form>
 			)}
-			<ContactElement.FormWrapper>
-				<ContactElement.Button
-					value="Delete"
+			<Form>
+				<Button
 					onClick={deleteContact}
-				/>
-			</ContactElement.FormWrapper>
+				>
+					Remove
+				</Button>
+			</Form>
 		</>
 	);
 };

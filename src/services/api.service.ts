@@ -6,9 +6,9 @@ import {
 
 type CRUDServiceProps = {
 	id?: string;
-	description?: string;
-	successHandler: (data : any) => any;
-	errorHandler: (error : any) => any;
+	description?: any;
+	onSuccess: (data : any) => any;
+	onError: (error : any) => any;
 };
 
 export class CRUDService {
@@ -17,37 +17,37 @@ export class CRUDService {
 	get = (props : CRUDServiceProps) : void => {
 		client[this.project]
 			.getAll()
-			.then(props.successHandler)
-			.catch(props.errorHandler);
+			.then(props.onSuccess)
+			.catch(props.onError);
 	};
 
 	delete = ({
 		id = '',
-		successHandler,
-		errorHandler,
+		onSuccess,
+		onError,
 	} : CRUDServiceProps) : void => {
 		client[this.project]
 			.delete(id)
-			.then(successHandler)
-			.catch(errorHandler);
+			.then(onSuccess)
+			.catch(onError);
 	};
 
 	create = (props : CRUDServiceProps) : void => {
 		client[this.project]
 			.create({ description: props.description })
-			.then(props.successHandler)
-			.catch(props.errorHandler);
+			.then(props.onSuccess)
+			.catch(props.onError);
 	};
 
 	update = ({
 		id = '',
 		description,
-		successHandler,
-		errorHandler,
+		onSuccess,
+		onError,
 	} : CRUDServiceProps) : void => {
 		client[this.project]
 			.update(id, { description })
-			.then(successHandler)
-			.catch(errorHandler);
+			.then(onSuccess)
+			.catch(onError);
 	};
 }

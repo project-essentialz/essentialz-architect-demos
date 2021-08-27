@@ -18,24 +18,24 @@ export const TodoAppContainer = () => {
 
 	const getTasks = () : void => {
 		crud.get({
-			successHandler: (data : Task[]) => setTasks(data),
-			errorHandler: (error : any) => console.error(error),
+			onSuccess: (data : Task[]) => setTasks(data),
+			onError: (error : any) => console.error(error),
 		});
 	};
 
 	const deleteTask = (id : string) : void => {
 		crud.delete({
 			id,
-			successHandler: (data : any) => getTasks(),
-			errorHandler: (error : any) => console.error(error),
+			onSuccess: (data : any) => getTasks(),
+			onError: (error : any) => console.error(error),
 		});
 	};
 
 	const createTask = (description : string) : void => {
 		crud.create({
 			description,
-			successHandler: (data : any) => getTasks(),
-			errorHandler: (error : any) => console.error(error),
+			onSuccess: (data : any) => getTasks(),
+			onError: (error : any) => console.error(error),
 		});
 	};
 
@@ -43,8 +43,8 @@ export const TodoAppContainer = () => {
 		crud.update({
 			id,
 			description,
-			successHandler: (data : any) => getTasks(),
-			errorHandler: (error : any) => console.error(error),
+			onSuccess: (data : any) => getTasks(),
+			onError: (error : any) => console.error(error),
 		});
 	};
 
