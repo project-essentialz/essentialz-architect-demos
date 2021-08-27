@@ -4,17 +4,17 @@ import {
 	ArchitectSchema,
 } from './architect.service';
 
-type CRUDServiceProps = {
+type Props = {
 	id?: string;
 	description?: any;
 	onSuccess: (data : any) => any;
 	onError: (error : any) => any;
 };
 
-export class CRUDService {
+export class ArchitectWrapper {
 	constructor(private readonly project : keyof ArchitectSchema) {}
 
-	get = (props : CRUDServiceProps) : void => {
+	read = (props : Props) : void => {
 		client[this.project]
 			.getAll()
 			.then(props.onSuccess)
@@ -25,14 +25,14 @@ export class CRUDService {
 		id = '',
 		onSuccess,
 		onError,
-	} : CRUDServiceProps) : void => {
+	} : Props) : void => {
 		client[this.project]
 			.delete(id)
 			.then(onSuccess)
 			.catch(onError);
 	};
 
-	create = (props : CRUDServiceProps) : void => {
+	create = (props : Props) : void => {
 		client[this.project]
 			.create({ description: props.description })
 			.then(props.onSuccess)
@@ -44,7 +44,7 @@ export class CRUDService {
 		description,
 		onSuccess,
 		onError,
-	} : CRUDServiceProps) : void => {
+	} : Props) : void => {
 		client[this.project]
 			.update(id, { description })
 			.then(onSuccess)

@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import styles from '../../styles/contact.module.css';
 
 // Architect
-import { CRUDService } from '../../services/api.service';
+import { ArchitectWrapper } from '../../services/api.service';
 
 // Types
 import { Contact } from '../../types/types';
@@ -21,7 +21,7 @@ import {
 
 export const ContactProfileContainer = (props : any) => {
 	const { match } = props;
-	const crud = new CRUDService('contacts');
+	const crud = new ArchitectWrapper('contacts');
 
 	const [contact, setContact] = useState<Contact>();
 	const [editMode, setEditMode] = useState<boolean>(false);
@@ -34,8 +34,8 @@ export const ContactProfileContainer = (props : any) => {
 	const contactId : string = match?.params.id;
 
 	const getContact = () : void => {
-		crud.get({
-			onSuccess: (data : any) => setContact(data),
+		crud.read({
+			onSuccess: (data : any) => setContact(data[0]),
 			onError: (error : any) => console.error(error),
 		});
 	};

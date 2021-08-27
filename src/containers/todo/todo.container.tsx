@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { CRUDService } from '../../services/api.service';
+import { ArchitectWrapper } from '../../services/api.service';
 
 // Types
 import { Task } from '../../types/types';
@@ -14,10 +14,10 @@ import {
 
 export const TodoAppContainer = () => {
 	const [tasks, setTasks] = useState<Task[]>([]);
-	const crud = new CRUDService('tasks');
+	const crud = new ArchitectWrapper('tasks');
 
 	const getTasks = () : void => {
-		crud.get({
+		crud.read({
 			onSuccess: (data : Task[]) => setTasks(data),
 			onError: (error : any) => console.error(error),
 		});
