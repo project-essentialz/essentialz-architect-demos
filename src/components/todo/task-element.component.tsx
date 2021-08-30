@@ -6,7 +6,7 @@ import {
 	Button,
 } from '..';
 
-import { Task } from '../../types/types';
+import { Task } from '../../types';
 
 type TaskElementProps = {
 	task: Task;

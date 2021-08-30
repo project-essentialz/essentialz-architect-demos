@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import client from '../../services/architect.service';
 
 // Types
-import { Contact } from '../../types/types';
+import { Contact } from '../../types';
 
 // Components
 import {
