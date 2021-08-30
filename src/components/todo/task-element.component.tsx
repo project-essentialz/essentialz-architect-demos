@@ -38,29 +38,27 @@ const TaskElement = (props : TaskElementProps) => {
 	};
 
 	return (
-		<div>
-			<Container
-				className="bg-dark"
+		<Container
+			className="bg-dark"
+		>
+			<Input
+				value={inputValue}
+				onChange={onInputChange}
+				readOnly={!edit}
+			/>
+			<Button
+				className="op-button"
+				onClick={edit ? onUpdateClick : onDeleteClick}
 			>
-				<Input
-					value={inputValue}
-					onChange={onInputChange}
-					readOnly={!edit}
-				/>
-				<Button
-					className="op-button"
-					onClick={edit ? onUpdateClick : onDeleteClick}
-				>
-					{edit ? 'Save' : 'Remove'}
-				</Button>
-				<Button
-					className="op-button"
-					onClick={() => setEdit(pre => !pre)}
-				>
-					{edit ? 'Cancel' : ' Edit'}
-				</Button>
-			</Container>
-		</div>
+				{edit ? 'Save' : 'Remove'}
+			</Button>
+			<Button
+				className="op-button"
+				onClick={() => setEdit(pre => !pre)}
+			>
+				{edit ? 'Cancel' : ' Edit'}
+			</Button>
+		</Container>
 	);
 };
 

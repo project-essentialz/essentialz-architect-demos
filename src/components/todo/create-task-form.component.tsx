@@ -4,7 +4,6 @@ import {
 	Input,
 	Button,
 	Container,
-	Wrapper,
 	Form,
 } from '..';
 
@@ -30,28 +29,24 @@ const CreateTaskForm = (props : CreateTaskFormProps) : JSX.Element => {
 	};
 
 	return (
-		<Wrapper
-			className="input-wrapper"
-		>
-			<Container>
-				<Form
-					onSubmit={submit}
+		<Container>
+			<Form
+				onSubmit={submit}
+			>
+				<Input
+					type="text"
+					placeholder="Add task..."
+					value={inputValue}
+					onChange={onInputChange}
+				/>
+				<Button
+					className="op-button"
+					type="submit"
 				>
-					<Input
-						type="text"
-						placeholder="Add task..."
-						value={inputValue}
-						onChange={onInputChange}
-					/>
-					<Button
-						className="op-button"
-						type="submit"
-					>
-						Add
-					</Button>
-				</Form>
-			</Container>
-		</Wrapper>
+					Add
+				</Button>
+			</Form>
+		</Container>
 	);
 };
 
