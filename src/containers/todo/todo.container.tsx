@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import client from '../../services/architect.service';
 
 // Types
-import { Task } from '../../types/types';
+import { Task } from '../../types';
 
 // Components
 import {

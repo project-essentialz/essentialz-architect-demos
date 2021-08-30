@@ -3,7 +3,7 @@ import architect, { ArchitectResource } from 'architect-sdk';
 import {
 	Task,
 	Contact,
-} from '../types/types';
+} from '../types';
 
 export type ArchitectSchema = {
 	tasks: ArchitectResource<Task>;
