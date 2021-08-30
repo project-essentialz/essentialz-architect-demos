@@ -4,7 +4,7 @@ import React from 'react';
 import { Image } from '..';
 import { Link } from 'react-router-dom';
 
-type ContactElementProps = {
+type PhonebookElementProps = {
 	id: string;
 	firstName: string;
 	lastName: string;
@@ -13,7 +13,7 @@ type ContactElementProps = {
 	phone: string;
 };
 
-export const ContactElement = (props : ContactElementProps) => {
+export const PhonebookElement = (props : PhonebookElementProps) => {
 	const {
 		id,
 		firstName,

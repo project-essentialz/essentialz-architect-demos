@@ -1,13 +1,15 @@
 import TodoAppContainer from './todo';
 import {
-	ContactListingContainer,
-	CreateContactFormContainer,
-	ContactProfileContainer,
-} from './contacts';
+	PhonebookListingContainer,
+	CreatePhonebookFormContainer,
+	PhonebookProfileContainer,
+} from './phonebook';
+import { HomeContainer } from './home';
 
 export {
 	TodoAppContainer,
-	ContactListingContainer,
-	CreateContactFormContainer,
-	ContactProfileContainer,
+	PhonebookListingContainer,
+	CreatePhonebookFormContainer,
+	PhonebookProfileContainer,
+	HomeContainer,
 };

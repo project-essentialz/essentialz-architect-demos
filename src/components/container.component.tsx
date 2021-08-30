@@ -1,11 +1,11 @@
 import React from 'react';
 
-export const Container: React.FC<React.HTMLProps<HTMLElement>> = (props) => {
+export const Container: React.FC<React.HTMLProps<HTMLDivElement>> = (props) => {
 	const {
 		children,
-		className,
+		...rest
 	} = props;
 	return (
-		<div className={`container ${className} `}>{children}</div>
+		<div {...rest}>{children}</div>
 	);
 };
