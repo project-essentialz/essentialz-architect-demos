@@ -1,27 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-	BrowserRouter,
-	Route,
-} from 'react-router-dom';
 
 import reportWebVitals from './reportWebVitals';
 
-import {
-	TodoAppContainer,
-	ContactListingContainer,
-	CreateContactFormContainer,
-	ContactProfileContainer,
-} from './containers/index';
+import { App } from './App';
 
 ReactDOM.render(
 	<React.StrictMode>
-		<BrowserRouter>
-			<Route exact path="/todo" component={TodoAppContainer} />
-			<Route exact path="/contacts" component={ContactListingContainer} />
-			<Route exact path="/contacts/create" component={CreateContactFormContainer} />
-			<Route exact path="/contact/:id" component={ContactProfileContainer} />
-		</BrowserRouter>
+		<App />
 	</React.StrictMode>,
 	document.getElementById('root')
 );
