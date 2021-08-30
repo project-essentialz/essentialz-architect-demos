@@ -4,9 +4,6 @@ import { useHistory } from 'react-router-dom';
 // Architect
 import client from '../../services/architect.service';
 
-// Styles
-import styles from '../../styles/contact.module.css';
-
 // Types
 import { Contact } from '../../types/types';
 
@@ -119,10 +116,10 @@ export const ContactProfileContainer = (props : any) => {
 						src={contact?.pictureUrl || ''}
 						width={300}
 					/>
-					<p className={styles.contactProfileText}>{contact?.firstName}</p>
-					<p className={styles.contactProfileText}>{contact?.lastName}</p>
-					<p className={styles.contactProfileText}>{contact?.phone}</p>
-					<p className={styles.contactProfileText}>{contact?.email}</p>
+					<p>{contact?.firstName}</p>
+					<p>{contact?.lastName}</p>
+					<p>{contact?.phone}</p>
+					<p>{contact?.email}</p>
 					<Button
 						onClick={() => setEditMode(true)}
 					>
