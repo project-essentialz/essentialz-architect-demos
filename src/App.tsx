@@ -26,7 +26,7 @@ export const App = () => {
 				<Switch>
 					<Route exact path="/phonebook" component={PhonebookListingContainer} />
 					<Route exact path="/phonebook/create" component={CreatePhonebookFormContainer} />
-					<Route exact path="/phonebook/:id" component={PhonebookProfileContainer} />
+					<Route exact path="/contact/:id" component={PhonebookProfileContainer} />
 				</Switch>
 				<Switch>
 					<Route exact path="/todo" component={TodoAppContainer} />
