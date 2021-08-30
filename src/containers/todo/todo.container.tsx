@@ -9,7 +9,6 @@ import { Task } from '../../types';
 // Components
 import {
 	Todo,
-	Wrapper,
 	Container,
 } from '../../components/index';
 
@@ -47,7 +46,7 @@ export const TodoAppContainer = () : React.ReactElement => {
 	useEffect(() => getTasks(), []);
 
 	return (
-		<Wrapper>
+		<>
 			<Container>
 				{tasks.map(task => (
 					<Todo.TaskElement
@@ -61,6 +60,6 @@ export const TodoAppContainer = () : React.ReactElement => {
 			<Todo.CreateTaskForm
 				onSubmit={createTask}
 			/>
-		</Wrapper>
+		</>
 	);
 };
