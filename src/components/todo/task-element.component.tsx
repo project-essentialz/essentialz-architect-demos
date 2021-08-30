@@ -1,7 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
 
-import styles from '../../styles/todo.module.css';
-
 import {
 	Container,
 	Input,
@@ -40,12 +38,11 @@ const TaskElement = (props : TaskElementProps) => {
 	};
 
 	return (
-		<div className={styles.todoElement}>
+		<div>
 			<Container
 				className="bg-dark"
 			>
 				<Input
-					className={edit ? styles.todoInput : styles.todoField}
 					value={inputValue}
 					onChange={onInputChange}
 					readOnly={!edit}
