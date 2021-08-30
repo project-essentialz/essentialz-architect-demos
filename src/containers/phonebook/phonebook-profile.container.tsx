@@ -15,7 +15,7 @@ import {
 	Image,
 } from '../../components';
 
-export const ContactProfileContainer = (props : any) => {
+export const PhonebookProfileContainer = (props : any) => {
 	const { match } = props;
 
 	const [contact, setContact] = useState<Contact>();

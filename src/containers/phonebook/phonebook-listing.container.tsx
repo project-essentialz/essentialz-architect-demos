@@ -8,7 +8,7 @@ import { Contact } from '../../types';
 
 // Components
 import {
-	ContactElement,
+	PhonebookElement,
 } from '../../components';
 import { Table, ContentProps } from '../../components';
 
@@ -27,7 +27,7 @@ const fields : ContentProps[] = [
 	},
 ];
 
-export const ContactListingContainer = () => {
+export const PhonebookListingContainer = () => {
 	const [contacts, setContacts] = useState<Contact[]>([]);
 
 	const getContacts = () => {
@@ -45,7 +45,7 @@ export const ContactListingContainer = () => {
 				fields={fields}
 			>
 				{contacts.map((contact : Contact) => (
-					<ContactElement
+					<PhonebookElement
 						id={contact.id || ''}
 						firstName={contact.firstName}
 						lastName={contact.lastName}

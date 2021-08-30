@@ -6,24 +6,32 @@ import {
 	Switch,
 } from 'react-router-dom';
 
+import { Navbar } from './components';
 import {
+	HomeContainer,
 	TodoAppContainer,
-	ContactListingContainer,
-	CreateContactFormContainer,
-	ContactProfileContainer,
+	PhonebookListingContainer,
+	CreatePhonebookFormContainer,
+	PhonebookProfileContainer,
 } from './containers/index';
 
 export const App = () => {
 	return (
-		<Router>
-			<Switch>
-				<Route exact path="/contacts" component={ContactListingContainer} />
-				<Route exact path="/contacts/create" component={CreateContactFormContainer} />
-				<Route exact path="/contact/:id" component={ContactProfileContainer} />
-			</Switch>
-			<Switch>
-				<Route exact path="/todo" component={TodoAppContainer} />
-			</Switch>
-		</Router>
+		<>
+			<Navbar />
+			<Router>
+				<Switch>
+					<Route exact path="/" component={HomeContainer} />
+				</Switch>
+				<Switch>
+					<Route exact path="/phonebook" component={PhonebookListingContainer} />
+					<Route exact path="/phonebook/create" component={CreatePhonebookFormContainer} />
+					<Route exact path="/phonebook/:id" component={PhonebookProfileContainer} />
+				</Switch>
+				<Switch>
+					<Route exact path="/todo" component={TodoAppContainer} />
+				</Switch>
+			</Router>
+		</>
 	);
 };
