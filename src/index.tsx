@@ -5,8 +5,6 @@ import {
 	Route,
 } from 'react-router-dom';
 
-import './styles/index.global.css';
-
 import reportWebVitals from './reportWebVitals';
 
 import {

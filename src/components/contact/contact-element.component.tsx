@@ -1,8 +1,5 @@
 import React from 'react';
 
-// Styles
-import styles from '../../styles/contact.module.css';
-
 // Components
 import { Image } from '..';
 import { Link } from 'react-router-dom';
@@ -28,32 +25,22 @@ export const ContactElement = (props : ContactElementProps) => {
 
 	return (
 		<>
-			<div
-				className={styles.textWrapper}
-			>
+			<div>
 				<Image
 					width={100}
 					src={pictureUrl}
 				/>
 			</div>
-			<div
-				className={styles.textWrapper}
-			>
+			<div>
 				{`${firstName} ${lastName}`}
 			</div>
-			<div
-				className={styles.textWrapper}
-			>
+			<div>
 				{phone}
 			</div>
-			<div
-				className={styles.textWrapper}
-			>
+			<div>
 				{email}
 			</div>
-			<div
-				className={styles.textWrapper}
-			>
+			<div>
 				<Link to={`/contact/${id}`}>
 					View
 				</Link>

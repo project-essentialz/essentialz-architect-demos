@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-import { ArchitectWrapper } from '../../services/api.service';
+// Architect
+import client from '../../services/architect.service';
 
 // Types
 import { Task } from '../../types/types';
@@ -12,40 +13,35 @@ import {
 	Container,
 } from '../../components/index';
 
-export const TodoAppContainer = () => {
+export const TodoAppContainer = () : React.ReactElement => {
 	const [tasks, setTasks] = useState<Task[]>([]);
-	const crud = new ArchitectWrapper('tasks');
 
 	const getTasks = () : void => {
-		crud.read({
-			onSuccess: (data : Task[]) => setTasks(data),
-			onError: (error : any) => console.error(error),
-		});
+		client.tasks
+			.getAll()
+			.then(setTasks)
+			.catch(console.error);
 	};
 
 	const deleteTask = (id : string) : void => {
-		crud.delete({
-			id,
-			onSuccess: (data : any) => getTasks(),
-			onError: (error : any) => console.error(error),
-		});
+		client.tasks
+			.delete(id)
+			.then(getTasks)
+			.catch(console.error);
 	};
 
 	const createTask = (description : string) : void => {
-		crud.create({
-			description,
-			onSuccess: (data : any) => getTasks(),
-			onError: (error : any) => console.error(error),
-		});
+		client.tasks
+			.create({ description })
+			.then(getTasks)
+			.catch(console.error);
 	};
 
 	const updateTask = (id : string, description : string) : void => {
-		crud.update({
-			id,
-			description,
-			onSuccess: (data : any) => getTasks(),
-			onError: (error : any) => console.error(error),
-		});
+		client.tasks
+			.update(id, { description })
+			.then(getTasks)
+			.catch(console.error);
 	};
 
 	useEffect(() => getTasks(), []);

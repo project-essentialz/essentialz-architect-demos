@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import useForceUpdate from '../../hooks/useForceUpdate';
 
 // Architect
 import client from '../../services/architect.service';
@@ -10,7 +9,6 @@ import { Contact } from '../../types/types';
 
 // Components
 import {
-	ContactElement,
 	Form,
 	Input,
 	Button,
@@ -94,7 +92,6 @@ export const CreateContactFormContainer = () => {
 		picture: '',
 	});
 	const history = useHistory();
-	const updateComponent = useForceUpdate();
 
 	const validateInput = () : boolean => {
 		let validated = true;
@@ -113,7 +110,6 @@ export const CreateContactFormContainer = () => {
 		const validated = validateInput();
 		if (!validated) {
 			setData(inputs);
-			updateComponent();
 			return;
 		}
 

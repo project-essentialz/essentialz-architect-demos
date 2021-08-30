@@ -1,5 +1,1 @@
-import { ContactElement } from './contact-element.component';
-
-export {
-	ContactElement,
-};
+export * from './contact-element.component';

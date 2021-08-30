@@ -1,7 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
 
-import styles from '../../styles/todo.module.css';
-
 import {
 	Input,
 	Button,
@@ -44,7 +42,6 @@ const CreateTaskForm = (props : CreateTaskFormProps) : JSX.Element => {
 						placeholder="Add task..."
 						value={inputValue}
 						onChange={onInputChange}
-						className={styles.todoInput}
 					/>
 					<Button
 						className="op-button"

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // Architect
-import { ArchitectWrapper } from '../../services/api.service';
+import client from '../../services/architect.service';
 
 // Types
 import { Contact } from '../../types/types';
@@ -29,13 +29,12 @@ const fields : ContentProps[] = [
 
 export const ContactListingContainer = () => {
 	const [contacts, setContacts] = useState<Contact[]>([]);
-	const crud = new ArchitectWrapper('contacts');
 
 	const getContacts = () => {
-		crud.read({
-			onSuccess: (data : any) => setContacts(data),
-			onError: (error : any) => console.log(error),
-		});
+		client.contacts
+			.getAll()
+			.then(setContacts)
+			.catch(console.error);
 	};
 
 	useEffect(() => getContacts(), []);
@@ -46,7 +45,7 @@ export const ContactListingContainer = () => {
 				fields={fields}
 			>
 				{contacts.map((contact : Contact) => (
-					<ContactElement.ContactElement
+					<ContactElement
 						id={contact.id || ''}
 						firstName={contact.firstName}
 						lastName={contact.lastName}

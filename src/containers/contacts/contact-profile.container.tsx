@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
+// Architect
+import client from '../../services/architect.service';
+
 // Styles
 import styles from '../../styles/contact.module.css';
-
-// Architect
-import { ArchitectWrapper } from '../../services/api.service';
 
 // Types
 import { Contact } from '../../types/types';
 
 // Components
 import {
-	ContactElement,
 	Form,
 	Input,
 	Button,
@@ -21,7 +20,6 @@ import {
 
 export const ContactProfileContainer = (props : any) => {
 	const { match } = props;
-	const crud = new ArchitectWrapper('contacts');
 
 	const [contact, setContact] = useState<Contact>();
 	const [editMode, setEditMode] = useState<boolean>(false);
@@ -34,33 +32,32 @@ export const ContactProfileContainer = (props : any) => {
 	const contactId : string = match?.params.id;
 
 	const getContact = () : void => {
-		crud.read({
-			onSuccess: (data : any) => setContact(data[0]),
-			onError: (error : any) => console.error(error),
-		});
+		client.contacts
+			.get(contactId)
+			.then(setContact)
+			.catch(console.error);
 	};
 
 	const deleteContact = () : void => {
-		crud.delete({
-			id: contactId,
-			onSuccess: (data : any) => history.push('/contacts'),
-			onError: (error : any) => console.error(error),
-		});
+		client.contacts
+			.delete(contactId)
+			.then(() => history.push('/contacts'))
+			.catch(console.error);
 	};
 
 	const editContact = () : void => {
-		crud.update({
-			id: contactId,
-			description: {
+		client.contacts
+			.update(contactId, {
 				firstName,
 				lastName,
 				phone,
 				email,
-			},
-			onSuccess: (data : any) => getContact(),
-			onError: (error : any) => console.error(error),
-		});
-		setEditMode(false);
+			})
+			.then(() => {
+				getContact();
+				setEditMode(false);
+			})
+			.catch(console.error);
 	};
 
 	useEffect(() => getContact(), []);
