@@ -12,37 +12,47 @@ import {
 	Container,
 	List,
 	Showcase,
+	Handler,
+	HandlerProps,
 } from '../../components/index';
 
 export const TodoAppContainer = () : React.ReactElement => {
 	const [tasks, setTasks] = useState<Task[]>([]);
+	const [handler, setHandler] = useState<HandlerProps>();
+
+	const handleError = (error : any) => {
+		setHandler({
+			variant: 'error',
+			message: error.message,
+		});
+	};
 
 	const getTasks = () : void => {
 		client.tasks
 			.getAll()
 			.then(setTasks)
-			.catch(console.error);
+			.catch(handleError);
 	};
 
 	const deleteTask = (id : string) : void => {
 		client.tasks
 			.delete(id)
 			.then(getTasks)
-			.catch(console.error);
+			.catch(handleError);
 	};
 
 	const createTask = (description : string) : void => {
 		client.tasks
 			.create({ description })
 			.then(getTasks)
-			.catch(console.error);
+			.catch(handleError);
 	};
 
 	const updateTask = (id : string, description : string) : void => {
 		client.tasks
 			.update(id, { description })
 			.then(getTasks)
-			.catch(console.error);
+			.catch(handleError);
 	};
 
 	useEffect(() => getTasks(), []);
@@ -84,6 +94,9 @@ export const TodoAppContainer = () : React.ReactElement => {
 								))}
 						</List>
 					</Container>
+					{handler && (
+						<Handler {...handler} />
+					)}
 				</Container>
 			)}
 		/>
