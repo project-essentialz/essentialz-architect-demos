@@ -24,11 +24,11 @@ export const Handler = (props : HandlerProps) => {
 	const variants : Record<HandlerVariants, HandlerVariantsProps> = {
 		loading: {
 			title: 'Loading...',
-			styling: 'bg-yellow-50',
+			styling: 'bg-yellow-100',
 		},
 		error: {
 			title: 'Error...',
-			styling: 'bg-red-50',
+			styling: 'bg-red-100',
 		},
 	};
 
@@ -47,7 +47,7 @@ export const Handler = (props : HandlerProps) => {
 			leaveFrom="opacity-100"
 			leaveTo="opacity-0"
 		>
-			<div className={`rounded-md border z-50 border-gray-300 ${variants[variant].styling} shadow-xl w-80 p-4 absolute left-3 bottom-3`}>
+			<div className={`rounded-md border z-50 border-gray-300 ${variants[variant].styling} shadow-2xl w-80 p-4 absolute left-3 bottom-4`}>
 				<div className="flex">
 					<div className="flex-shrink-0">
 						<ExclamationIcon className="h-5 w-5" aria-hidden="true" />
