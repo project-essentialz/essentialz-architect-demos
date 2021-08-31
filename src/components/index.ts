@@ -11,3 +11,4 @@ export * from './navbar.component';
 export * from './card.component';
 export * from './showcase.component';
 export * from './switch.component';
+export * from './list.component';

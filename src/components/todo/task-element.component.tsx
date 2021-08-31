@@ -1,9 +1,17 @@
 import React, { ChangeEvent, useState } from 'react';
+import {
+	ClipboardListIcon,
+	PencilIcon,
+	TrashIcon,
+	XIcon,
+	CheckIcon,
+} from '@heroicons/react/solid';
 
 import {
 	Container,
 	Input,
 	Button,
+	ListElement,
 } from '..';
 
 import { Task } from '../../types';
@@ -37,27 +45,31 @@ const TaskElement = (props : TaskElementProps) => {
 		onDelete(task.id);
 	};
 
+	const onCanelClick = () => {
+		setInputValue(task.description);
+		setEdit(false);
+	};
+
 	return (
 		<Container
 			className="bg-dark"
 		>
-			<Input
-				value={inputValue}
-				onChange={onInputChange}
-				readOnly={!edit}
+			<ListElement
+				element={edit ?
+					<Input maxLength={50} defaultValue={inputValue} onChange={onInputChange} className="w-full" /> :
+					<h3 className="pt-2 text-sm font-medium">{inputValue}</h3>}
+				icon={<ClipboardListIcon className="w-5" />}
+				button={(
+					<>
+						<Button variant="warning">
+							{edit ? <CheckIcon onClick={onUpdateClick} className="w-5" /> : <PencilIcon onClick={() => setEdit(true)} className="w-5" />}
+						</Button>
+						<Button variant="error" className="mr-5">
+							{edit ? <XIcon onClick={onCanelClick} className="w-5" /> : <TrashIcon onClick={onDeleteClick} className="w-5" />}
+						</Button>
+					</>
+				)}
 			/>
-			<Button
-				className="op-button"
-				onClick={edit ? onUpdateClick : onDeleteClick}
-			>
-				{edit ? 'Save' : 'Remove'}
-			</Button>
-			<Button
-				className="op-button"
-				onClick={() => setEdit(pre => !pre)}
-			>
-				{edit ? 'Cancel' : ' Edit'}
-			</Button>
 		</Container>
 	);
 };

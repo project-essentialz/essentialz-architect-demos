@@ -18,7 +18,6 @@ export const Input: React.FC<React.HTMLProps<HTMLInputElement>> = (props) => {
 					rounded
 					py-2
 					px-4
-					w-full
 					text-gray-700
 					focus:outline-none
 					focus:bg-white

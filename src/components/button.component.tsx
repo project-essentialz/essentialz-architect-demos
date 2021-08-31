@@ -1,19 +1,41 @@
 /* eslint-disable react/button-has-type */
 import React from 'react';
 
-export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (props) => {
+type ButtonVariants = 'error' | 'default' | 'warning';
+
+type ButtonVariantProps = {
+	styling: string;
+};
+
+type ButtonProps = {
+	variant?: ButtonVariants;
+};
+
+export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement> & ButtonProps> = (props) => {
 	const {
 		children,
 		type = 'button',
 		className,
+		variant = 'default',
 		...rest
 	} = props;
+	const variants : Record<ButtonVariants, ButtonVariantProps> = {
+		default: {
+			styling: 'bg-blue-500',
+		},
+		error: {
+			styling: 'bg-red-500',
+		},
+		warning: {
+			styling: 'bg-yellow-500',
+		},
+	};
 	return (
 		<div>
 			<button
 				className={`
 				shadow
-				bg-blue-500
+				${variants[variant].styling}
 				hover:bg-purple-400
 				focus:shadow-outline
 				focus:outline-none

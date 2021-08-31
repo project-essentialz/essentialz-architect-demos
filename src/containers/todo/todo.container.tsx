@@ -10,6 +10,8 @@ import { Task } from '../../types';
 import {
 	Todo,
 	Container,
+	List,
+	Showcase,
 } from '../../components/index';
 
 export const TodoAppContainer = () : React.ReactElement => {
@@ -46,33 +48,42 @@ export const TodoAppContainer = () : React.ReactElement => {
 	useEffect(() => getTasks(), []);
 
 	return (
-		<Container
-			className="w-full p-32"
-		>
-			<Container>
-				<p
-					className="float-left text-2xl mr-10 pt-1"
-				>
-					Your Todo List
-				</p>
+		<Showcase
+			code={Todo.CODE_SHOWCASE}
+			component={(
 				<Container
-					className="float-right"
+					className="w-full lg:p-32 md:p-10 p-1"
 				>
-					<Todo.CreateTaskForm
-						onSubmit={createTask}
-					/>
+					<Container>
+						<p
+							className="float-left text-2xl mr-10 pt-1"
+						>
+							Your Todo List
+						</p>
+						<Container
+							className="float-right"
+						>
+							<Todo.CreateTaskForm
+								onSubmit={createTask}
+							/>
+						</Container>
+					</Container>
+					<Container
+						className="mt-20 h-80 overflow-y-scroll border-t-2"
+					>
+						<List>
+							{tasks.map(task => (
+								<Todo.TaskElement
+									key={task.id}
+									task={task}
+									onUpdate={updateTask}
+									onDelete={deleteTask}
+								/>
+							))}
+						</List>
+					</Container>
 				</Container>
-			</Container>
-			<Container>
-				{tasks.map(task => (
-					<Todo.TaskElement
-						key={task.id}
-						task={task}
-						onUpdate={updateTask}
-						onDelete={deleteTask}
-					/>
-				))}
-			</Container>
-		</Container>
+			)}
+		/>
 	);
 };

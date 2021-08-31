@@ -33,21 +33,38 @@ export const TodoApp = () : React.ReactElement => {
     useEffect(() => getTasks(), []);
 
     return (
-        <>
+        <Container
+            className="w-full lg:p-32 md:p-10 p-1"
+        >
             <Container>
-                {tasks.map(task => (
-                    <Todo.TaskElement
-                        key={task.id}
-                        task={task}
-                        onUpdate={updateTask}
-                        onDelete={deleteTask}
+                <p
+                    className="float-left text-2xl mr-10 pt-1"
+                >
+                    Your Todo List
+                </p>
+                <Container
+                    className="float-right"
+                >
+                    <Todo.CreateTaskForm
+                        onSubmit={createTask}
                     />
-                ))}
+                </Container>
             </Container>
-            <Todo.CreateTaskForm
-                onSubmit={createTask}
-            />
-        </>
+            <Container
+                className="mt-20 h-80 overflow-y-scroll border-t-2"
+            >
+                <List>
+                    {tasks.map(task => (
+                        <Todo.TaskElement
+                            key={task.id}
+                            task={task}
+                            onUpdate={updateTask}
+                            onDelete={deleteTask}
+                        />
+                    ))}
+                </List>
+            </Container>
+        </Container>
     );
 };
 `;

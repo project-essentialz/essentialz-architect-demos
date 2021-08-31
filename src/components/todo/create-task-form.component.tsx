@@ -27,6 +27,7 @@ const CreateTaskForm = (props : CreateTaskFormProps) : JSX.Element => {
 		if (inputValue.length > 0) {
 			onSubmit(inputValue);
 			setInputValue('');
+			setIsOpen(false);
 		}
 	};
 
@@ -39,48 +40,50 @@ const CreateTaskForm = (props : CreateTaskFormProps) : JSX.Element => {
 				New task
 			</Button>
 			<Container>
-				<Container className={`bg-black w-full h-full absolute top-0 opacity-25 z-0 ${isOpen ? '' : 'hidden'}`} />
 				{isOpen && (
-					<Form
-						onSubmit={submit}
-						className="relative z-10"
-					>
-						<Container
-							className="flex flex-col items-center shadow-2xl border-solid border-2 mx-auto mt-32 w-96 h-52 rounded-xl bg-white"
+					<>
+						<Form
+							onSubmit={submit}
+							className="absolute inline-block left-0 right-0 w-full z-30 top-20"
 						>
 							<Container
-								className="w-80"
+								className="flex flex-col items-center shadow-2xl border-solid border-2 mx-auto mt-32 w-96 h-52 rounded-xl bg-white"
 							>
-								<Input
-									type="text"
-									placeholder="Your task..."
-									value={inputValue}
-									onChange={onInputChange}
-									className="mt-8"
-								/>
-							</Container>
-							<Container
-								className="w-80"
-							>
-								<Button
-									type="submit"
-									className="w-full mt-5"
+								<Container
+									className="w-80"
 								>
-									Add
-								</Button>
-								<Button
-									type="button"
-									className="w-full mt-2"
-									onClick={() => {
-										setIsOpen(false);
-										setInputValue('');
-									}}
+									<Input
+										type="text"
+										placeholder="Your task..."
+										value={inputValue}
+										onChange={onInputChange}
+										className="mt-8 w-full"
+									/>
+								</Container>
+								<Container
+									className="w-80"
 								>
-									Cancel
-								</Button>
+									<Button
+										type="submit"
+										className="w-full mt-5"
+									>
+										Add
+									</Button>
+									<Button
+										type="button"
+										className="w-full mt-2"
+										onClick={() => {
+											setIsOpen(false);
+											setInputValue('');
+										}}
+									>
+										Cancel
+									</Button>
+								</Container>
 							</Container>
-						</Container>
-					</Form>
+						</Form>
+						<Container className="bg-black w-full h-full absolute top-0 left-0 opacity-25 z-20" />
+					</>
 				)}
 			</Container>
 		</>
