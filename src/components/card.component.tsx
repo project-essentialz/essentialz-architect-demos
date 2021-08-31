@@ -16,7 +16,7 @@ export const Card = (props : CardProps) : React.ReactElement => {
 		className,
 	} = props;
 	return (
-		<div className={`max-w-sm rounded overflow-hidden shadow-lg text-center m-5 ${className}`}>
+		<div className={`transition-all duration-500 border-solid border-black hover:border-blue-500 border-2 max-w-sm rounded overflow-hidden shadow-lg text-center m-5 ${className}`}>
 			<div className="pl-32 pr-32">
 				{header}
 			</div>
