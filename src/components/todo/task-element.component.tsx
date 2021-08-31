@@ -56,7 +56,7 @@ const TaskElement = (props : TaskElementProps) => {
 		>
 			<ListElement
 				element={edit ?
-					<Input maxLength={50} defaultValue={inputValue} onChange={onInputChange} className="w-full" /> :
+					<Input maxLength={50} defaultValue={inputValue} onChange={onInputChange} className="w-full h-8 mt-1" /> :
 					<h3 className="pt-2 text-sm font-medium">{inputValue}</h3>}
 				icon={<ClipboardListIcon className="w-5" />}
 				button={(
