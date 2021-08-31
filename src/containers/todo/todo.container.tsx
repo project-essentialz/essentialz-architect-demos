@@ -72,14 +72,16 @@ export const TodoAppContainer = () : React.ReactElement => {
 						className="mt-20 h-80 overflow-y-scroll border-t-2"
 					>
 						<List>
-							{tasks.map(task => (
-								<Todo.TaskElement
-									key={task.id}
-									task={task}
-									onUpdate={updateTask}
-									onDelete={deleteTask}
-								/>
-							))}
+							{tasks.length === 0 ?
+								<p className="text-center mt-10 text-gray-500">Your Todo list is empty! Click on New Task button to add an task!</p>
+								: tasks.map(task => (
+									<Todo.TaskElement
+										key={task.id}
+										task={task}
+										onUpdate={updateTask}
+										onDelete={deleteTask}
+									/>
+								))}
 						</List>
 					</Container>
 				</Container>
