@@ -9,3 +9,5 @@ export * from './image.component';
 export * from './table.component';
 export * from './navbar.component';
 export * from './card.component';
+export * from './showcase.component';
+export * from './switch.component';

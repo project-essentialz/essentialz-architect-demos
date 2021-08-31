@@ -51,7 +51,7 @@ const navigation : Navigation[] = [
 export const Navbar = () => {
 	return (
 		<div
-			className="z-50 w-full pr-10 pt-5 pb-5 h-20 shadow-xl"
+			className="w-full pr-10 pt-5 pb-5 h-20 shadow-xl"
 		>
 			<Menu as="div" className="relative float-right inline-block">
 				{({ open }) => (

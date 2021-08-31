@@ -46,7 +46,23 @@ export const TodoAppContainer = () : React.ReactElement => {
 	useEffect(() => getTasks(), []);
 
 	return (
-		<>
+		<Container
+			className="w-full p-32"
+		>
+			<Container>
+				<p
+					className="float-left text-2xl mr-10 pt-1"
+				>
+					Your Todo List
+				</p>
+				<Container
+					className="float-right"
+				>
+					<Todo.CreateTaskForm
+						onSubmit={createTask}
+					/>
+				</Container>
+			</Container>
 			<Container>
 				{tasks.map(task => (
 					<Todo.TaskElement
@@ -57,9 +73,6 @@ export const TodoAppContainer = () : React.ReactElement => {
 					/>
 				))}
 			</Container>
-			<Todo.CreateTaskForm
-				onSubmit={createTask}
-			/>
-		</>
+		</Container>
 	);
 };

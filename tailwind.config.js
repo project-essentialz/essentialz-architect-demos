@@ -22,6 +22,12 @@ module.exports = {
 			borderColor: {
 				...colors,
 			},
+			height: {
+				96: '75vh',
+			},
+			width: {
+				100: '520px',
+			},
 		},
 	},
 	variants: {
