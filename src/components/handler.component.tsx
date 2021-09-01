@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ExclamationIcon } from '@heroicons/react/solid';
 import { Transition } from '@headlessui/react';
+import { Container } from '.';
 
 type HandlerVariants = 'loading' | 'error';
 
@@ -9,32 +10,44 @@ type HandlerVariantsProps = {
 	styling: string;
 };
 
-export type HandlerProps = {
+export type ModalProps = {
+	key: string;
 	message: string;
 	variant: HandlerVariants;
+	timeout?: number;
+	onHide?: () => void;
 }
 
-export const Handler = (props : HandlerProps) => {
+export type Props = {
+	data: ModalProps[];
+}
+
+const variants : Record<HandlerVariants, HandlerVariantsProps> = {
+	loading: {
+		title: 'Loading...',
+		styling: 'bg-yellow-100 border border-yellow-400 text-yellow-700',
+	},
+	error: {
+		title: 'Error...',
+		styling: 'bg-red-100 border border-red-400 text-red-700',
+	},
+};
+
+const HandlerModal = (props : ModalProps) => {
 	const {
 		message,
 		variant,
+		timeout = 3,
+		onHide = () => {},
 	} = props;
 	const [visible, setVisible] = useState<boolean>(false);
 
-	const variants : Record<HandlerVariants, HandlerVariantsProps> = {
-		loading: {
-			title: 'Loading...',
-			styling: 'bg-yellow-100',
-		},
-		error: {
-			title: 'Error...',
-			styling: 'bg-red-100',
-		},
-	};
-
 	useEffect(() => {
 		setVisible(true);
-		setTimeout(() => setVisible(false), 3000);
+		setTimeout(() => {
+			setVisible(false);
+			onHide();
+		}, timeout * 1000);
 	}, [props]);
 
 	return (
@@ -47,7 +60,7 @@ export const Handler = (props : HandlerProps) => {
 			leaveFrom="opacity-100"
 			leaveTo="opacity-0"
 		>
-			<div className={`rounded-md border z-50 border-gray-300 ${variants[variant].styling} shadow-2xl w-80 p-4 absolute left-3 bottom-4`}>
+			<div className={`rounded-md z-50 ${variants[variant].styling} shadow-lg w-80 p-4 relative mt-2 left-3 bottom-4`}>
 				<div className="flex">
 					<div className="flex-shrink-0">
 						<ExclamationIcon className="h-5 w-5" aria-hidden="true" />
@@ -63,5 +76,32 @@ export const Handler = (props : HandlerProps) => {
 				</div>
 			</div>
 		</Transition>
+	);
+};
+
+export const Handler = (props : Props) => {
+	const {
+		data,
+	} = props;
+
+	const onHide = (key : string) => {
+		data.splice(
+			data.findIndex(item => item.key === key),
+			1
+		);
+	};
+
+	return (
+		<Container
+			className="absolute left-0 bottom-0"
+		>
+			{data.map(({ key, ...handler }) => (
+				<HandlerModal
+					key={key}
+					onHide={() => onHide(key)}
+					{...handler}
+				/>
+			))}
+		</Container>
 	);
 };

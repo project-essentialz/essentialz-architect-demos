@@ -12,20 +12,14 @@ import {
 	Container,
 	List,
 	Showcase,
-	Handler,
-	HandlerProps,
 } from '../../components/index';
 
-export const TodoAppContainer = () : React.ReactElement => {
+export const TodoAppContainer = (props : any) : React.ReactElement => {
+	const {
+		handleError,
+		handleLoading,
+	} = props;
 	const [tasks, setTasks] = useState<Task[]>([]);
-	const [handler, setHandler] = useState<HandlerProps>();
-
-	const handleError = (error : any) => {
-		setHandler({
-			variant: 'error',
-			message: error.message,
-		});
-	};
 
 	const getTasks = () : void => {
 		client.tasks
@@ -42,6 +36,7 @@ export const TodoAppContainer = () : React.ReactElement => {
 	};
 
 	const createTask = (description : string) : void => {
+		handleLoading('Creating tasks...');
 		client.tasks
 			.create({ description })
 			.then(getTasks)
@@ -94,9 +89,6 @@ export const TodoAppContainer = () : React.ReactElement => {
 								))}
 						</List>
 					</Container>
-					{handler && (
-						<Handler {...handler} />
-					)}
 				</Container>
 			)}
 		/>

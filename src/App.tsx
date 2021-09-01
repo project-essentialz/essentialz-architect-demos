@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { uuid } from 'uuidv4';
 
 import {
 	BrowserRouter as Router,
@@ -6,7 +7,11 @@ import {
 	Switch,
 } from 'react-router-dom';
 
-import { Navbar } from './components';
+import {
+	Navbar,
+	Handler,
+	ModalProps,
+} from './components';
 import {
 	HomeContainer,
 	TodoAppContainer,
@@ -16,12 +21,37 @@ import {
 } from './containers/index';
 
 export const App = () => {
+	const [handlers, setHandlers] = useState<ModalProps[]>([]);
+
+	const onLoading = (message : string, timeout = 3,) => {
+		setHandlers(pre => [
+			...pre, {
+				timeout,
+				message,
+				variant: 'loading',
+				key: uuid(),
+			},
+		]);
+	};
+
+	const onError = (error : any, timeout = 3) => {
+		setHandlers(pre => [
+			...pre, {
+				timeout,
+				message: error.message,
+				variant: 'error',
+				key: uuid(),
+			},
+		]);
+	};
+
 	return (
 		<>
 			<Navbar />
+			<Handler data={handlers} />
 			<Router>
 				<Switch>
-					<Route exact path="/" component={HomeContainer} />
+					<Route exact path="/" render={(props : any) => <HomeContainer {...props} handleLoading={onLoading} handleError={onError} />} />
 				</Switch>
 				<Switch>
 					<Route exact path="/phonebook" component={PhonebookListingContainer} />
@@ -29,7 +59,7 @@ export const App = () => {
 					<Route exact path="/contact/:id" component={PhonebookProfileContainer} />
 				</Switch>
 				<Switch>
-					<Route exact path="/todo" component={TodoAppContainer} />
+					<Route exact path="/todo" render={(props : any) => <TodoAppContainer {...props} handleLoading={onLoading} handleError={onError} />} />
 				</Switch>
 			</Router>
 		</>
