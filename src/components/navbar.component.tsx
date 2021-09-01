@@ -40,7 +40,7 @@ const navigation : Navigation[] = [
 	{
 		key: 3,
 		name: 'Phonebook App',
-		href: '/phonebook',
+		href: '/contacts',
 		Icon: <CodeIcon
 			className="w-6 mr-2"
 			aria-hidden="true"

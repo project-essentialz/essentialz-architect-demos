@@ -82,7 +82,7 @@ const inputs : InputField[] = [
 	},
 ];
 
-export const CreatePhonebookFormContainer = () => {
+export const CreateContactFormContainer = () => {
 	const [data, setData] = useState<InputField[]>(inputs);
 	const [formData, setFormData] = useState<Record<string, any>>({
 		firstName: '',

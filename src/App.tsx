@@ -15,8 +15,8 @@ import {
 import {
 	HomeContainer,
 	TodoAppContainer,
-	PhonebookListingContainer,
-	CreatePhonebookFormContainer,
+	ContactsContainer,
+	CreateContactFormContainer,
 	PhonebookProfileContainer,
 } from './containers/index';
 
@@ -54,9 +54,9 @@ export const App = () => {
 					<Route exact path="/" render={(props : any) => <HomeContainer {...props} handleLoading={onLoading} handleError={onError} />} />
 				</Switch>
 				<Switch>
-					<Route exact path="/phonebook" component={PhonebookListingContainer} />
-					<Route exact path="/phonebook/create" component={CreatePhonebookFormContainer} />
-					<Route exact path="/contact/:id" component={PhonebookProfileContainer} />
+					<Route exact path="/contacts" component={ContactsContainer} />
+					<Route exact path="/contacts/create" component={CreateContactFormContainer} />
+					<Route exact path="/contacts/:id" component={PhonebookProfileContainer} />
 				</Switch>
 				<Switch>
 					<Route exact path="/todo" render={(props : any) => <TodoAppContainer {...props} handleLoading={onLoading} handleError={onError} />} />

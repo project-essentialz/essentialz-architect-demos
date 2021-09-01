@@ -1,1 +1,1 @@
-export * from './phonebook-element.component';
+export * from './contact-card.component';
