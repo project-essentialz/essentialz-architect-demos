@@ -34,11 +34,11 @@ export const App = () => {
 		]);
 	};
 
-	const onError = (error : any, timeout = 3) => {
+	const onError = (error : string, timeout = 3) => {
 		setHandlers(pre => [
 			...pre, {
 				timeout,
-				message: error.message,
+				message: error,
 				variant: 'error',
 				key: uuid(),
 			},

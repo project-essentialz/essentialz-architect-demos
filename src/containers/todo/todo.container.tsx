@@ -25,14 +25,14 @@ export const TodoAppContainer = (props : any) : React.ReactElement => {
 		client.tasks
 			.getAll()
 			.then(setTasks)
-			.catch(handleError);
+			.catch(({ message }) => handleError(message));
 	};
 
 	const deleteTask = (id : string) : void => {
 		client.tasks
 			.delete(id)
 			.then(getTasks)
-			.catch(handleError);
+			.catch(({ message }) => handleError(message));
 	};
 
 	const createTask = (description : string) : void => {
@@ -40,14 +40,14 @@ export const TodoAppContainer = (props : any) : React.ReactElement => {
 		client.tasks
 			.create({ description })
 			.then(getTasks)
-			.catch(handleError);
+			.catch(({ message }) => handleError(message));
 	};
 
 	const updateTask = (id : string, description : string) : void => {
 		client.tasks
 			.update(id, { description })
 			.then(getTasks)
-			.catch(handleError);
+			.catch(({ message }) => handleError(message));
 	};
 
 	useEffect(() => getTasks(), []);
@@ -70,6 +70,7 @@ export const TodoAppContainer = (props : any) : React.ReactElement => {
 						>
 							<Todo.CreateTaskForm
 								onSubmit={createTask}
+								onError={handleError}
 							/>
 						</Container>
 					</Container>

@@ -10,10 +10,14 @@ import {
 
 type CreateTaskFormProps = {
 	onSubmit: (input : string) => void;
+	onError: (error : string) => void;
 }
 
 const CreateTaskForm = (props : CreateTaskFormProps) : JSX.Element => {
-	const { onSubmit } = props;
+	const {
+		onSubmit,
+		onError,
+	} = props;
 
 	const [inputValue, setInputValue] = useState<string>('');
 	const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -28,7 +32,9 @@ const CreateTaskForm = (props : CreateTaskFormProps) : JSX.Element => {
 			onSubmit(inputValue);
 			setInputValue('');
 			setIsOpen(false);
+			return;
 		}
+		onError('Task must have more than one character.');
 	};
 
 	return (
