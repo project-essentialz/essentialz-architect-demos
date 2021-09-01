@@ -21,7 +21,7 @@ const cards : CardProps[] = [
 		header: <CodeIcon className="w-full" />,
 		title: 'Phonebook App',
 		description: 'An simple Phonebook app done in React showcasing Architect SDK usability.',
-		footer: <a href="/phonebook" className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">Test out</a>,
+		footer: <a href="/contacts" className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">Test out</a>,
 	},
 ];
 

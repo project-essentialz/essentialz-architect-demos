@@ -34,6 +34,17 @@ export const App = () => {
 		]);
 	};
 
+	const onSuccess = (message : string, timeout = 3,) => {
+		setHandlers(pre => [
+			...pre, {
+				timeout,
+				message,
+				variant: 'success',
+				key: uuid(),
+			},
+		]);
+	};
+
 	const onError = (error : string, timeout = 3) => {
 		setHandlers(pre => [
 			...pre, {
@@ -51,15 +62,55 @@ export const App = () => {
 			<Handler data={handlers} />
 			<Router>
 				<Switch>
-					<Route exact path="/" render={(props : any) => <HomeContainer {...props} handleLoading={onLoading} handleError={onError} />} />
+					<Route
+						exact
+						path="/"
+						render={
+							(props : any) => (
+								<HomeContainer {...props} handleLoading={onLoading} handleError={onError} handleSuccess={onSuccess} />
+							)
+						}
+					/>
 				</Switch>
 				<Switch>
-					<Route exact path="/contacts" component={ContactsContainer} />
-					<Route exact path="/contacts/create" component={CreateContactFormContainer} />
-					<Route exact path="/contacts/:id" component={PhonebookProfileContainer} />
+					<Route
+						exact
+						path="/contacts"
+						render={
+							(props : any) => (
+								<ContactsContainer {...props} handleLoading={onLoading} handleError={onError} handleSuccess={onSuccess} />
+							)
+						}
+					/>
+					<Route
+						exact
+						path="/contacts/create"
+						render={
+							(props : any) => (
+								<CreateContactFormContainer {...props} handleLoading={onLoading} handleError={onError} handleSuccess={onSuccess} />
+							)
+						}
+					/>
+					<Route
+						exact
+						path="/contacts/:id"
+						render={
+							(props : any) => (
+								<PhonebookProfileContainer {...props} handleLoading={onLoading} handleError={onError} handleSuccess={onSuccess} />
+							)
+						}
+					/>
 				</Switch>
 				<Switch>
-					<Route exact path="/todo" render={(props : any) => <TodoAppContainer {...props} handleLoading={onLoading} handleError={onError} />} />
+					<Route
+						exact
+						path="/todo"
+						render={
+							(props : any) => (
+								<TodoAppContainer {...props} handleLoading={onLoading} handleError={onError} handleSuccess={onSuccess} />
+							)
+						}
+					/>
 				</Switch>
 			</Router>
 		</>

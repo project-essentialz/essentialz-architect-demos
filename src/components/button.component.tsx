@@ -1,7 +1,9 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable react/button-has-type */
 import React from 'react';
+import { Container } from '.';
 
-type ButtonVariants = 'error' | 'default' | 'warning';
+type ButtonVariants = 'error' | 'purple' | 'default' | 'warning';
 
 type ButtonVariantProps = {
 	styling: string;
@@ -9,6 +11,37 @@ type ButtonVariantProps = {
 
 type ButtonProps = {
 	variant?: ButtonVariants;
+};
+
+const variants : Record<ButtonVariants, ButtonVariantProps> = {
+	default: {
+		styling: 'bg-blue-500 shadow hover:bg-purple-400 font-bold rounded',
+	},
+	purple: {
+		styling: `
+		relative
+		inline-flex
+		items-center
+		border
+		border-transparent
+		text-sm
+		font-medium
+		bg-indigo-600
+		hover:bg-indigo-700
+		focus:ring-2
+		focus:ring-offset-2
+		focus:ring-indigo-500	
+		shadow-sm
+		font-medium
+		rounded-md
+		`,
+	},
+	error: {
+		styling: 'bg-red-500 shadow hover:bg-purple-400 font-bold rounded',
+	},
+	warning: {
+		styling: 'bg-yellow-500 shadow hover:bg-purple-400 font-bold rounded',
+	},
 };
 
 export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement> & ButtonProps> = (props) => {
@@ -19,31 +52,16 @@ export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement> & Bu
 		variant = 'default',
 		...rest
 	} = props;
-	const variants : Record<ButtonVariants, ButtonVariantProps> = {
-		default: {
-			styling: 'bg-blue-500',
-		},
-		error: {
-			styling: 'bg-red-500',
-		},
-		warning: {
-			styling: 'bg-yellow-500',
-		},
-	};
 	return (
-		<div>
+		<Container>
 			<button
 				className={`
-				shadow
 				${variants[variant].styling}
-				hover:bg-purple-400
 				focus:shadow-outline
 				focus:outline-none
 				text-white
-				font-bold
 				py-2
 				px-4
-				rounded
 				${className}
 				`}
 				type={type}
@@ -51,6 +69,6 @@ export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement> & Bu
 			>
 				{children}
 			</button>
-		</div>
+		</Container>
 	);
 };

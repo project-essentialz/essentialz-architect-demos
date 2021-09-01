@@ -3,7 +3,7 @@ import { ExclamationIcon } from '@heroicons/react/solid';
 import { Transition } from '@headlessui/react';
 import { Container } from '.';
 
-type HandlerVariants = 'loading' | 'error';
+type HandlerVariants = 'loading' | 'error' | 'success';
 
 type HandlerVariantsProps = {
 	title: string;
@@ -26,6 +26,10 @@ const variants : Record<HandlerVariants, HandlerVariantsProps> = {
 	loading: {
 		title: 'Loading...',
 		styling: 'bg-yellow-100 border border-yellow-400 text-yellow-700',
+	},
+	success: {
+		title: 'Success!',
+		styling: 'bg-blue-100 border border-blue-400 text-blue-700',
 	},
 	error: {
 		title: 'Error...',
@@ -60,14 +64,16 @@ const HandlerModal = (props : ModalProps) => {
 			leaveFrom="opacity-100"
 			leaveTo="opacity-0"
 		>
-			<div className={`rounded-md z-50 ${variants[variant].styling} shadow-lg w-80 p-4 relative mt-2 left-3 bottom-4`}>
+			<div
+				className={`rounded-md z-50 ${variants[variant].styling} shadow-lg w-80 p-4 relative mt-2 left-3 bottom-4`}
+			>
 				<div className="flex">
 					<div className="flex-shrink-0">
 						<ExclamationIcon className="h-5 w-5" aria-hidden="true" />
 					</div>
 					<div className="ml-3">
-						<h3 className="text-sm font-medium text-yellow-800">{variants[variant].title}</h3>
-						<div className="mt-2 text-sm text-yellow-700">
+						<h3 className="text-sm font-medium">{variants[variant].title}</h3>
+						<div className="mt-2 text-sm">
 							<p>
 								{message}
 							</p>
