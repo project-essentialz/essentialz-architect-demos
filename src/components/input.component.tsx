@@ -1,15 +1,16 @@
 import React from 'react';
 
+import { Container } from '.';
+
 export const Input: React.FC<React.HTMLProps<HTMLInputElement>> = (props) => {
 	const {
 		className,
 		...rest
 	} = props;
 	return (
-		<div>
-			<div>
-				<input
-					className={`
+		<Container>
+			<input
+				className={`
 					transition-all
 					bg-gray-200
 					appearance-none
@@ -24,9 +25,8 @@ export const Input: React.FC<React.HTMLProps<HTMLInputElement>> = (props) => {
 					focus:border-blue-500
 					${className}
 				`}
-					{...rest}
-				/>
-			</div>
-		</div>
+				{...rest}
+			/>
+		</Container>
 	);
 };

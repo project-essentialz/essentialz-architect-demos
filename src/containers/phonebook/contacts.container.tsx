@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { PencilAltIcon } from '@heroicons/react/solid';
 
 // Architect
 import client from '../../services/architect.service';
@@ -69,6 +70,18 @@ export const ContactsContainer = (props : any) => {
 						element={(
 							<ContactCard
 								contact={contact}
+								footer={(
+									<Button
+										variant="blank"
+									>
+										<Link
+											to={`/contacts/${contact.id}`}
+										>
+											<PencilAltIcon className="h-6 w-6 float-left pb-1" />
+											<span className="ml-1">View</span>
+										</Link>
+									</Button>
+								)}
 							/>
 						)}
 					/>

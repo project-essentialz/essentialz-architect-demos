@@ -3,7 +3,7 @@
 import React from 'react';
 import { Container } from '.';
 
-type ButtonVariants = 'error' | 'purple' | 'default' | 'warning';
+type ButtonVariants = 'error' | 'purple' | 'default' | 'warning' | 'blank';
 
 type ButtonVariantProps = {
 	styling: string;
@@ -16,6 +16,20 @@ type ButtonProps = {
 const variants : Record<ButtonVariants, ButtonVariantProps> = {
 	default: {
 		styling: 'bg-blue-500 shadow hover:bg-purple-400 font-bold rounded',
+	},
+	blank: {
+		styling: `
+		relative
+		inline-flex
+		py-4
+		text-sm
+		text-gray-700
+		font-medium
+		border
+		border-transparent
+		rounded-bl-lg
+		hover:text-gray-500
+		`,
 	},
 	purple: {
 		styling: `
@@ -48,7 +62,7 @@ export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement> & Bu
 	const {
 		children,
 		type = 'button',
-		className,
+		className = '',
 		variant = 'default',
 		...rest
 	} = props;

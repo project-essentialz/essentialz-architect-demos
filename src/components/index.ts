@@ -13,3 +13,4 @@ export * from './switch.component';
 export * from './list.component';
 export * from './handler.component';
 export * from './text.component';
+export * from './blank-card.component';

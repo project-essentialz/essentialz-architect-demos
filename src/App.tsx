@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 
 import {
 	BrowserRouter as Router,
@@ -29,7 +29,7 @@ export const App = () => {
 				timeout,
 				message,
 				variant: 'loading',
-				key: uuid(),
+				key: v4(),
 			},
 		]);
 	};
@@ -40,7 +40,7 @@ export const App = () => {
 				timeout,
 				message,
 				variant: 'success',
-				key: uuid(),
+				key: v4(),
 			},
 		]);
 	};
@@ -51,7 +51,7 @@ export const App = () => {
 				timeout,
 				message: error,
 				variant: 'error',
-				key: uuid(),
+				key: v4(),
 			},
 		]);
 	};

@@ -3,6 +3,7 @@ import React from 'react';
 export const Text:React.FC<React.HTMLProps<HTMLParagraphElement>> = (props) => {
 	const {
 		children,
+		...rest
 	} = props;
-	return <p>{children}</p>;
+	return <p {...rest}>{children}</p>;
 };
