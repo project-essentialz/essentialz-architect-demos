@@ -62,55 +62,15 @@ export const App = () => {
 			<Handler data={handlers} />
 			<Router>
 				<Switch>
-					<Route
-						exact
-						path="/"
-						render={
-							(props : any) => (
-								<HomeContainer {...props} handleLoading={onLoading} handleError={onError} handleSuccess={onSuccess} />
-							)
-						}
-					/>
+					<Route exact path="/" render={HomeContainer} />
 				</Switch>
 				<Switch>
-					<Route
-						exact
-						path="/contacts"
-						render={
-							(props : any) => (
-								<ContactsContainer {...props} handleLoading={onLoading} handleError={onError} handleSuccess={onSuccess} />
-							)
-						}
-					/>
-					<Route
-						exact
-						path="/contacts/create"
-						render={
-							(props : any) => (
-								<CreateContactFormContainer {...props} handleLoading={onLoading} handleError={onError} handleSuccess={onSuccess} />
-							)
-						}
-					/>
-					<Route
-						exact
-						path="/contacts/:id"
-						render={
-							(props : any) => (
-								<PhonebookProfileContainer {...props} handleLoading={onLoading} handleError={onError} handleSuccess={onSuccess} />
-							)
-						}
-					/>
+					<Route exact path="/contacts" render={ContactsContainer} />
+					<Route exact path="/contacts/create" render={CreateContactFormContainer} />
+					<Route exact path="/contacts/:id" render={PhonebookProfileContainer} />
 				</Switch>
 				<Switch>
-					<Route
-						exact
-						path="/todo"
-						render={
-							(props : any) => (
-								<TodoAppContainer {...props} handleLoading={onLoading} handleError={onError} handleSuccess={onSuccess} />
-							)
-						}
-					/>
+					<Route exact path="/todo" render={TodoAppContainer} />
 				</Switch>
 			</Router>
 		</>

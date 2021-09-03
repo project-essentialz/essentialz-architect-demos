@@ -27,10 +27,10 @@ const cards : CardProps[] = [
 
 export const HomeContainer = () => {
 	return (
-		<Container
+		<div
 			className="flex flex-wrap w-full mt-5 justify-center"
 		>
 			{cards.map(props => <Card className="hover:shadow-2xl" key={props.title} {...props} />)}
-		</Container>
+		</div>
 	);
 };

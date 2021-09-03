@@ -20,7 +20,7 @@ export const Showcase = (props : ShowcaseProps) => {
 	const [codeMenu, setCodeMenu] = useState(false);
 
 	return (
-		<Container
+		<div
 			className="flex flex-col items-center pl-5 pr-5 lg:pl-36 lg:pr-36"
 		>
 			<Switch
@@ -56,6 +56,6 @@ export const Showcase = (props : ShowcaseProps) => {
 					/>
 				</Container>
 			</Container>
-		</Container>
+		</div>
 	);
 };
