@@ -1,6 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+// Components
 import { Card } from '../components/card.component';
 import { ContactBlock } from '../components/contact-block.component';
+import { Button } from '../components/button.component';
+
+// Types
 import { Contact } from '../types';
 
 const contacts: Contact[] = [
@@ -29,10 +35,14 @@ const contacts: Contact[] = [
 		email: 'ted.fox@gmail.com',
 	},
 ];
+
 export const HomePage: React.FC = () => {
 	return (
-		<Card>
-			<ul role="list" className="divide-y divide-gray-200">
+		<Card
+			title="Contacts"
+			action={<Link to="/contacts/create"><Button>Create new contact</Button></Link>}
+		>
+			<ul className="divide-y divide-gray-200">
 				{
 					contacts.map(contact => (
 						<li key={contact.id}>

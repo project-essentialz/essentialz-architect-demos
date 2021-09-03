@@ -50,6 +50,7 @@
         "react/prop-types": "off",
         "react/require-default-props" : "off",
         "react/no-array-index-key" : "warn",
+        "react/button-has-type": "warn",
         "import/extensions": "off",
         "array-callback-return": "warn",
         "dot-location": [
