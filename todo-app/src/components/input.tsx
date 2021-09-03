@@ -6,11 +6,15 @@ export const Input:React.FC<React.HTMLProps<HTMLInputElement>> = (props) => {
 			className={`
                 border-2
                 border-solid
-                border-blue-500
+                border-gray-300
                 rounded-lg
+                outline-none
                 m-2
                 p-2
                 h-10
+                transition
+                hover:border-blue-300
+                focus:border-blue-500
             `}
 			{...props}
 		/>

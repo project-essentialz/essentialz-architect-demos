@@ -18,7 +18,7 @@ type TaskBlockProps = {
 	task: Task;
 };
 
-export const TaskBlock = (props : TaskBlockProps) => {
+export const TaskBlock = (props : TaskBlockProps) : React.ReactElement => {
 	const {
 		task,
 	} = props;
