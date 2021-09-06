@@ -9,3 +9,5 @@ export type Contact = {
 	updatedAt?: number;
 	createdAt?: string;
 }
+
+export type ContactFormData = Omit<Contact, 'pictureUrl'> & {file?: File}

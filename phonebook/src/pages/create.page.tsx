@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 // Components
@@ -12,45 +12,28 @@ import { ContactForm } from '../components/forms/contact-form.component';
 import architect from '../services/architect.service';
 
 // Types
-import { Contact } from '../types';
+import { Contact, ContactFormData } from '../types';
 
 export const CreatePage: React.FC = () => {
-	const [formData, setFormData] = useState<Record<string, any>>({
-		firstName: '',
-		lastName: '',
-		email: '',
-		phone: '',
-		picture: '',
-	});
 	const history = useHistory();
+	const [loading, setLoading] = useState(false);
 
-	const handleInput = (e: ChangeEvent<HTMLInputElement>) : void => {
-		setFormData({ ...formData, [e.currentTarget.name]: e.currentTarget.files ? e.currentTarget.files[0] : e.currentTarget.value });
-	};
-
-	const createContact = async (e : any) => {
-		e.preventDefault();
+	const createContact = async (data : ContactFormData) => {
+		if (loading) return;
 		// handleLoading('Creating contact...');
-
-		const resource : Contact = {
-			firstName: formData.firstName,
-			lastName: formData.lastName,
-			email: formData.email,
-			phone: formData.phone,
-			pictureUrl: 'https://www.nicepng.com/png/detail/136-1366211_group-of-10-guys-login-user-icon-png.png',
-			meta: {},
-		};
-
+		const { file, ...newContact } = data;
+		setLoading(true);
 		try {
-			if (formData.picture) {
-				const { url } = await architect.files.upload(formData.picture);
-				resource.pictureUrl = url;
+			if (file) {
+				const { url } = await architect.files.upload(file);
+				(newContact as Contact).pictureUrl = url;
 			}
-			await architect.contacts.create(resource);
+			await architect.contacts.create(newContact);
 			// handleSuccess('Contact has been created.');
-			history.push('/contacts');
+			history.push('/');
 		} catch ({ message }) {
 			// handleError(message);
+			setLoading(false);
 		}
 	};
 
@@ -58,7 +41,7 @@ export const CreatePage: React.FC = () => {
 		<Card>
 			<CardHeader title="New contact" />
 			<CardBody className="px-7 pb-7">
-				<ContactForm />
+				<ContactForm handleSubmit={createContact} />
 
 			</CardBody>
 		</Card>

@@ -318,6 +318,16 @@
         "jsx-a11y/role-has-required-aria-props": "warn",
         "jsx-a11y/role-supports-aria-props": "warn",
         "jsx-a11y/scope": "warn",
+        "jsx-a11y/label-has-associated-control": ["error", {
+            "required": {
+              "some": ["nesting", "id"]
+            }
+          }],
+          "jsx-a11y/label-has-for": ["error", {
+            "required": {
+              "some": ["nesting", "id"]
+            }
+          }],
         "default-case": "off",
         "no-dupe-class-members": "off",
         "no-undef": "off",
