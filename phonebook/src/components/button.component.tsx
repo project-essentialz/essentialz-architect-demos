@@ -22,6 +22,8 @@ export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (
 				focus:ring-2
 				focus:ring-offset-2
 				focus:ring-indigo-500
+				flex 
+				items-center
 				${className}
 				`}
 			{...rest}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { PageContainer } from './containers';
-import { CreatePage, HomePage, ViewPage } from './pages';
+import { CreatePage, HomePage, EditPage } from './pages';
 
 function App() {
 	return (
@@ -9,7 +9,7 @@ function App() {
 			<Router>
 				<Switch>
 					<Route exact path="/contacts/create" component={CreatePage} />
-					<Route exact path="/contacts/:id" component={ViewPage} />
+					<Route exact path="/contacts/:id" component={EditPage} />
 					<Route path="/" component={HomePage} />
 				</Switch>
 			</Router>
