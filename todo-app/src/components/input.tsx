@@ -9,9 +9,12 @@ export const Input:React.FC<React.HTMLProps<HTMLInputElement>> = (props) => {
                 border-gray-300
                 rounded-lg
                 outline-none
-                m-2
+                mt-2
+                mb-2
                 p-2
                 h-10
+                w-full
+                mx-auto
                 transition
                 hover:border-blue-300
                 focus:border-blue-500

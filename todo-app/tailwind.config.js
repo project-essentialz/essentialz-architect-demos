@@ -8,7 +8,7 @@ module.exports = {
 				lg: '500px',
 			},
 			width: {
-				lg: '500px',
+				lg: '75%',
 			},
 		},
 	},

@@ -3,7 +3,6 @@ import { PlusCircleIcon } from '@heroicons/react/solid';
 
 import {
 	Button,
-	Container,
 	Input,
 } from '.';
 
@@ -52,28 +51,35 @@ export const ModalForm = (props : ModalProps) : React.ReactElement => {
 				>
 					<form
 						onSubmit={handleSubmit}
-						className="mt-20"
-					>
-						<Container
-							width="xl"
+						className={`
+							mt-20
+							md:w-96
+							sm:w-full
 							flex
-							flexDirection="flex-col"
-							centered
+							flex-col
+							mx-auto
+							border-2
+							border-solid
+							border-grey
+							bg-white
+							rounded-xl
+							p-2
+						`}
+					>
+						<Input
+							onChange={handleInput}
+							placeholder="Your task..."
+							maxLength={40}
+							required
+						/>
+						<Button>
+							Add
+						</Button>
+						<Button
+							onClick={handleModal}
 						>
-							<Input
-								onChange={handleInput}
-								placeholder="Your task..."
-								required
-							/>
-							<Button>
-								Add
-							</Button>
-							<Button
-								onClick={handleModal}
-							>
-								Cancel
-							</Button>
-						</Container>
+							Cancel
+						</Button>
 					</form>
 				</div>
 			)}

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { v4 } from 'uuid';
 
 import {
 	Container,
 	Text,
 	ModalForm,
 	TaskBlock,
+	Header,
+	Body,
 } from '../components';
 
 import { Task } from '../types';
@@ -46,20 +47,8 @@ export const TodoApp = () : React.ReactElement => {
 	useEffect(() => getTasks(), []);
 
 	return (
-		<Container
-			variant="default"
-			flex
-			flexDirection="flex-col"
-			width="default"
-			centered
-		>
-			<Container
-				variant="blank"
-				flex
-				flexDirection="flex-row"
-				spaceBetween
-				centered
-			>
+		<Container>
+			<Header>
 				<Text
 					fontSize="2xl"
 				>
@@ -68,20 +57,17 @@ export const TodoApp = () : React.ReactElement => {
 				<ModalForm
 					onSubmit={createTask}
 				/>
-			</Container>
-			<Container
-				variant="blank"
-				overflow="overflow-scroll"
-				height="lg"
-				centered
-			>
+			</Header>
+			<Body>
 				{tasks.map(task => (
 					<TaskBlock
-						key={v4()}
+						key={task.id}
 						task={task}
+						onUpdate={updateTask}
+						onDelete={deleteTask}
 					/>
 				))}
-			</Container>
+			</Body>
 		</Container>
 	);
 };
