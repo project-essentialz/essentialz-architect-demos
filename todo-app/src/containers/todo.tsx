@@ -19,29 +19,25 @@ export const TodoApp = () : React.ReactElement => {
 	const getTasks = () : void => {
 		client.tasks
 			.getAll()
-			.then(setTasks)
-			.catch(console.error);
+			.then(setTasks);
 	};
 
 	const deleteTask = (id : string) : void => {
 		client.tasks
 			.delete(id)
-			.then(getTasks)
-			.catch(console.error);
+			.then(getTasks);
 	};
 
 	const createTask = (description : string) : void => {
 		client.tasks
 			.create({ description })
-			.then(getTasks)
-			.catch(console.error);
+			.then(getTasks);
 	};
 
 	const updateTask = (id : string, description : string) : void => {
 		client.tasks
 			.update(id, { description })
-			.then(getTasks)
-			.catch(console.error);
+			.then(getTasks);
 	};
 
 	useEffect(() => getTasks(), []);
