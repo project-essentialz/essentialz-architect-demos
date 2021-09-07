@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react';
 type Props = {
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	value: File | undefined;
+	pictureUrl: string | undefined;
 }
 
-export const FileInputComponent = ({ onChange, value }: Props) => {
-	const [imgSrc, setImgSrc] = useState<string | null>(null);
+export const FileInputComponent = ({ onChange, value, pictureUrl }: Props) => {
+	const [imgSrc, setImgSrc] = useState<string | null>(typeof pictureUrl === 'string' ? pictureUrl : null);
 
 	useEffect(() => {
 		let url: string | undefined;

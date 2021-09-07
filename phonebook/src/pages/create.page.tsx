@@ -12,7 +12,7 @@ import { ContactForm } from '../components/forms/contact-form.component';
 import architect from '../services/architect.service';
 
 // Types
-import { Contact, ContactFormData } from '../types';
+import { ContactFormData } from '../types';
 
 export const CreatePage: React.FC = () => {
 	const history = useHistory();
@@ -26,7 +26,7 @@ export const CreatePage: React.FC = () => {
 		try {
 			if (file) {
 				const { url } = await architect.files.upload(file);
-				(newContact as Contact).pictureUrl = url;
+				newContact.pictureUrl = url;
 			}
 			await architect.contacts.create(newContact);
 			// handleSuccess('Contact has been created.');

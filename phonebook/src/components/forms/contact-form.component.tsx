@@ -60,7 +60,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ contact, handleSubmit 
 								</div>
 							</div>
 						))}
-						<FileInputComponent onChange={handleFileInputChange} value={form.file} />
+						<FileInputComponent onChange={handleFileInputChange} value={form.file} pictureUrl={contact?.pictureUrl} />
 					</div>
 				</div>
 			</div>

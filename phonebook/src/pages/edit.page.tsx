@@ -29,13 +29,12 @@ export const EditPage: React.FC = () => {
 
 	const updateContact = async (data: ContactFormData) => {
 		if (loading) return;
-		// TODO Loading and error handling
 		const { file, ...contact } = data;
 		setLoading(true);
 		try {
 			if (file) {
 				const { url } = await architect.files.upload(file);
-				(contact as Contact).pictureUrl = url;
+				contact.pictureUrl = url;
 			}
 			await architect.contacts.update(contact.id, contact);
 			history.push('/');
