@@ -26,11 +26,29 @@ const App = () : React.ReactElement => {
 		password : string,
 		provider : ArchitectAuthProviders,
 	) => {
-		console.log(email, password, provider);
+		client.users.create({
+			email,
+			password,
+			provider,
+		}).then(() => handleLogin(email, password, provider));
+	};
+
+	const getCurrentUser = async () => {
+		const userId = client.getUserId() || '';
+		const user = await client.users.get(userId);
+		return user;
+	};
+
+	const logoutUser = () => {
+		client.logout()
+			.then(() => window.location.reload());
 	};
 
 	return client.isAuthenticated() ? (
-		<User />
+		<User
+			onLoad={getCurrentUser}
+			onLogout={logoutUser}
+		/>
 	) : (
 		<Auth
 			onLogin={handleLogin}
