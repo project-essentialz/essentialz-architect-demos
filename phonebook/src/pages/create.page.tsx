@@ -23,7 +23,6 @@ export const CreatePage: React.FC = () => {
 
 	const createContact = async (data : ContactFormData) => {
 		if (loading) return;
-		// handleLoading('Creating contact...');
 		const { file, ...newContact } = data;
 		setLoading(true);
 		try {
@@ -32,10 +31,8 @@ export const CreatePage: React.FC = () => {
 				newContact.pictureUrl = url;
 			}
 			await architect.contacts.create(newContact);
-			// handleSuccess('Contact has been created.');
 			history.push(routes.contactList);
 		} catch ({ message }) {
-			// handleError(message);
 			setLoading(false);
 		}
 	};

@@ -13,16 +13,16 @@ import { ProtectedRoute } from './components/protected-route.componen';
 
 function App() {
 	return (
-		<PageContainer>
-			<Router>
+		<Router>
+			<PageContainer>
 				<Switch>
 					<ProtectedRoute exact path={routes.create} Component={CreatePage} />
 					<ProtectedRoute exact path={routes.edit} Component={EditPage} />
 					<ProtectedRoute exact path={routes.contactList} Component={ContactList} />
 					<Route path={routes.home} render={() => <Home />} />
 				</Switch>
-			</Router>
-		</PageContainer>
+			</PageContainer>
+		</Router>
 	);
 }
 
