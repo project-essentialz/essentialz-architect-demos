@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
 	Auth,
@@ -9,28 +9,44 @@ import client from './services/architect';
 import { ArchitectAuthProviders } from 'architect-sdk/lib/core/auth';
 
 const App = () : React.ReactElement => {
+	const [isAuthenthicated, setIsAuthenthicated] = useState<boolean>(client.isAuthenticated());
+
 	const handleLogin = (
 		email : string,
 		password : string,
 		provider : ArchitectAuthProviders,
+		event : React.FormEvent<HTMLFormElement>,
+		setLoading: (value : boolean) => void,
 	) => {
+		event.preventDefault();
+		setLoading(true);
 		client.login({
 			email,
 			password,
 		}, provider)
-			.then(() => window.location.reload());
+			.then(() => {
+				setLoading(false);
+				setIsAuthenthicated(client.isAuthenticated());
+			})
+			.catch(() => setLoading(false));
 	};
 
 	const handleRegister = (
 		email : string,
 		password : string,
 		provider : ArchitectAuthProviders,
+		event : React.FormEvent<HTMLFormElement>,
+		setLoading: (value : boolean) => void,
 	) => {
+		event.preventDefault();
+		setLoading(true);
 		client.users.create({
 			email,
 			password,
 			provider,
-		}).then(() => handleLogin(email, password, provider));
+		})
+			.then(() => setLoading(false))
+			.catch(() => setLoading(false));
 	};
 
 	const getCurrentUser = async () => {
@@ -41,10 +57,10 @@ const App = () : React.ReactElement => {
 
 	const logoutUser = () => {
 		client.logout()
-			.then(() => window.location.reload());
+			.then(() => setIsAuthenthicated(client.isAuthenticated()));
 	};
 
-	return client.isAuthenticated() ? (
+	return isAuthenthicated ? (
 		<User
 			onLoad={getCurrentUser}
 			onLogout={logoutUser}

@@ -12,8 +12,8 @@ import {
 } from 'architect-sdk/lib/core/auth';
 
 type AuthProps = {
-	onLogin: (email : string, password : string, provider : ArchitectAuthProviders) => void;
-	onRegister: (email : string, password : string, provider : ArchitectAuthProviders) => void;
+	onLogin: (email : string, password : string, provider : ArchitectAuthProviders, e : React.FormEvent<HTMLFormElement>, setLoading : (value : boolean) => void) => void;
+	onRegister: (email : string, password : string, provider : ArchitectAuthProviders, e : React.FormEvent<HTMLFormElement>, setLoading : (value : boolean) => void) => void;
 }
 
 export const Auth = (props : AuthProps) : React.ReactElement => {

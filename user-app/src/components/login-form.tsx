@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState } from 'react';
 
 import {
 	LoginIcon,
@@ -47,21 +47,23 @@ export const LoginForm = (props : FormProps) : React.ReactElement => {
 		password: '',
 		provider: 'email',
 	});
-	const [isFormDisabled, setIsFormDisabled] = useState<boolean>(false);
+	const [isLoading, setisLoading] = useState<boolean>(false);
 
 	const handleInput = (e : React.FormEvent<HTMLInputElement>, inputName : string) => {
 		setFormData({ ...formData, [inputName]: e.currentTarget.value });
 	};
 
-	const handleSubmit = (e : FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		setIsFormDisabled(true);
-		onSubmit(formData.email, formData.password, formData.provider as ArchitectAuthProvider);
-	};
-
 	return (
 		<FormWrapper
-			onSubmit={handleSubmit}
+			onSubmit={(e) => {
+				onSubmit(
+					formData.email,
+					formData.password,
+					formData.provider as ArchitectAuthProvider,
+					e,
+					setisLoading,
+				);
+			}}
 		>
 			{loginInputProps.map(inputProps => (
 				<Input
@@ -71,10 +73,10 @@ export const LoginForm = (props : FormProps) : React.ReactElement => {
 			))}
 			<Button
 				type="submit"
-				disabled={isFormDisabled}
-				variant={isFormDisabled ? 'blank' : 'default'}
+				disabled={isLoading}
+				variant={isLoading ? 'blank' : 'default'}
 			>
-				{isFormDisabled ? <RefreshIcon className="w-6 h-6 mr-2 pb-1 animate-spin" /> : <LoginIcon className="w-6 h-6 mr-2 pb-1" /> }
+				{isLoading ? <RefreshIcon className="w-6 h-6 mr-2 pb-1 animate-spin" /> : <LoginIcon className="w-6 h-6 mr-2 pb-1" /> }
 				{' '}
 				Login
 			</Button>
