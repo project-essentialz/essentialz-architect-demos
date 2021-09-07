@@ -6,15 +6,15 @@ module.exports = {
 			keyframes: {
 				'form-show': {
 					'0%': {
-						transform: 'rotateY(90deg)',
+						opacity: '0',
 					},
 					'100%': {
-						transform: 'rotateY(0)',
+						opacity: '1',
 					},
 				},
 			},
 			animation: {
-				'form-show': 'form-show 1s ease-in-out',
+				'form-show': 'form-show 0.5s ease-in-out',
 			},
 		},
 	},

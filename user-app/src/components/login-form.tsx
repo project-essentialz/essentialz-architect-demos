@@ -1,6 +1,11 @@
 import React, { useState, FormEvent } from 'react';
 
 import {
+	LoginIcon,
+	RefreshIcon,
+} from '@heroicons/react/solid';
+
+import {
 	Input,
 	InputProps,
 	Button,
@@ -42,6 +47,7 @@ export const LoginForm = (props : FormProps) : React.ReactElement => {
 		password: '',
 		provider: 'email',
 	});
+	const [isFormDisabled, setIsFormDisabled] = useState<boolean>(false);
 
 	const handleInput = (e : React.FormEvent<HTMLInputElement>, inputName : string) => {
 		setFormData({ ...formData, [inputName]: e.currentTarget.value });
@@ -49,6 +55,7 @@ export const LoginForm = (props : FormProps) : React.ReactElement => {
 
 	const handleSubmit = (e : FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		setIsFormDisabled(true);
 		onSubmit(formData.email, formData.password, formData.provider as ArchitectAuthProvider);
 	};
 
@@ -64,7 +71,11 @@ export const LoginForm = (props : FormProps) : React.ReactElement => {
 			))}
 			<Button
 				type="submit"
+				disabled={isFormDisabled}
+				variant={isFormDisabled ? 'blank' : 'default'}
 			>
+				{isFormDisabled ? <RefreshIcon className="w-6 h-6 mr-2 pb-1 animate-spin" /> : <LoginIcon className="w-6 h-6 mr-2 pb-1" /> }
+				{' '}
 				Login
 			</Button>
 			<Footer

@@ -1,5 +1,6 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
+
+import { LogoutIcon } from '@heroicons/react/solid';
 
 import { Button } from '../components';
 
@@ -50,6 +51,7 @@ export const User = (props : UserProps) : React.ReactElement => {
 							<Button
 								onClick={onLogout}
 							>
+								<LogoutIcon className="w-6 h-6 mr-2 pb-1" />
 								Logout
 							</Button>
 						</div>
