@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import { LogoutIcon } from '@heroicons/react/solid';
+import {
+	LogoutIcon,
+	UserCircleIcon,
+} from '@heroicons/react/solid';
 
 import { Button } from '../components';
 
@@ -34,7 +37,10 @@ export const User = (props : UserProps) : React.ReactElement => {
 							</div>
 							<div className="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
 								<p className="text-sm font-medium text-gray-600">Welcome back,</p>
-								<p className="text-xl font-bold text-gray-900 sm:text-2xl">{user?.email}</p>
+								<p className="text-xl font-bold text-gray-900 sm:text-2xl">
+									<UserCircleIcon className="w-7 float-left pt-1 mr-2 invisible sm:visible" />
+									{user?.email}
+								</p>
 								<p className="text-sm font-medium text-gray-600">
 									id:
 									{' '}
@@ -59,9 +65,13 @@ export const User = (props : UserProps) : React.ReactElement => {
 				</div>
 				<div className="border-t border-gray-200 bg-gray-50 grid grid-cols-1 divide-y divide-gray-200 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
 					<div className="px-6 py-5 text-sm font-medium text-center">
-						<span className="text-gray-600">User is</span>
+						<span className="text-gray-600">
+							User is
+						</span>
 						{' '}
-						<span className="text-gray-900">{user?.active ? 'active' : 'not active'}</span>
+						<span className="text-gray-900">
+							{user?.active ? 'active' : 'not active'}
+						</span>
 					</div>
 					<div className="px-6 py-5 text-sm font-medium text-center">
 						<span className="text-gray-600">Created at</span>
