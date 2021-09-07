@@ -14,6 +14,9 @@ import architect from '../services/architect.service';
 // Types
 import { ContactFormData } from '../types';
 
+// Routes
+import { routes } from '../routes';
+
 export const CreatePage: React.FC = () => {
 	const history = useHistory();
 	const [loading, setLoading] = useState(false);
@@ -30,7 +33,7 @@ export const CreatePage: React.FC = () => {
 			}
 			await architect.contacts.create(newContact);
 			// handleSuccess('Contact has been created.');
-			history.push('/');
+			history.push(routes.contactList);
 		} catch ({ message }) {
 			// handleError(message);
 			setLoading(false);

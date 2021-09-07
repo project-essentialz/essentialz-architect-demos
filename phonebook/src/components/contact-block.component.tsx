@@ -14,6 +14,12 @@ import {
 // Types
 import { Contact } from '../types';
 
+// Routes
+import { routes } from '../routes';
+
+// Utils
+import { createRouteFromParams } from '../utils/createRouteFromParams';
+
 type ContactBlockProps = {
 	contact: Contact;
 	deleteContact: (id: string) => void;
@@ -24,8 +30,9 @@ export const ContactBlock: React.FC<ContactBlockProps> = ({ contact, deleteConta
 		e.preventDefault();
 		deleteContact(contact.id);
 	};
+
 	return (
-		<Link to={`/contacts/${contact.id}`} className="block hover:bg-gray-50">
+		<Link to={createRouteFromParams(routes.edit, { id: contact.id })} className="block hover:bg-gray-50">
 			<div className="flex items-center px-4 py-4 sm:px-6">
 				<div className="min-w-0 flex-1 flex items-center">
 					<div className="flex-shrink-0">

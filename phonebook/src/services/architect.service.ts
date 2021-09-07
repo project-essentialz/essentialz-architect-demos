@@ -15,9 +15,4 @@ export const client = architect<ArchitectSchema>({
 	baseUrl,
 });
 
-client.login({	email: 'nikola@essentialz.io',	password: 'architectdemo2021' }, 'email')
-	.catch(() => {
-		throw new Error('Login failed');
-	});
-
 export default client;

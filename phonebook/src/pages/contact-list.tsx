@@ -14,7 +14,10 @@ import { Contact } from '../types';
 // Services
 import architect from '../services/architect.service';
 
-export const HomePage: React.FC = () => {
+// Routes
+import { routes } from '../routes';
+
+export const ContactList: React.FC = () => {
 	const [contacts, setContacts] = useState<Contact[]>([]);
 	const [loading, setLoading] = useState(false);
 
@@ -37,7 +40,7 @@ export const HomePage: React.FC = () => {
 	return (
 		<Card>
 			<CardHeader title="Contacts">
-				<Link to="/contacts/create">
+				<Link to={routes.create}>
 					<Button>Create new contact</Button>
 				</Link>
 			</CardHeader>

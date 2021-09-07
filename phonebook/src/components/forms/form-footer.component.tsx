@@ -4,11 +4,14 @@ import { Link } from 'react-router-dom';
 // Components
 import { Button } from '../button.component';
 
+// Routes
+import { routes } from '../../routes';
+
 export const FormFooterComponent = () => {
 	return (
 		<div className="pt-5">
 			<div className="flex justify-end">
-				<Link to="/">
+				<Link to={routes.contactList}>
 					<button
 						type="button"
 						className={`

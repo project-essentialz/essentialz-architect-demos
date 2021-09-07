@@ -1,3 +1,4 @@
 export * from './create.page';
-export * from './home.page';
+export * from './contact-list';
 export * from './edit.page';
+export * from './home';
