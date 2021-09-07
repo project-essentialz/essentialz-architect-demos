@@ -42,11 +42,6 @@ export const User = (props : UserProps) : React.ReactElement => {
 									{user?.email}
 								</p>
 								<p className="text-sm font-medium text-gray-600">
-									id:
-									{' '}
-									{user?.id}
-								</p>
-								<p className="text-sm font-medium text-gray-600">
 									Role:
 									{' '}
 									{user?.role}
