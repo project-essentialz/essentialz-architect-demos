@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -6,24 +5,34 @@ import { Link } from 'react-router-dom';
 import { ContactImage } from './contact-image.component';
 
 // Icons
-import { MailIcon, PhoneIcon, ChevronRightIcon } from '@heroicons/react/outline';
+import {
+	MailIcon,
+	PhoneIcon,
+	TrashIcon,
+} from '@heroicons/react/outline';
 
 // Types
 import { Contact } from '../types';
 
 type ContactBlockProps = {
-	contact: Contact
-}
+	contact: Contact;
+	deleteContact: (id: string) => void;
+};
 
-export const ContactBlock: React.FC<ContactBlockProps> = (props) => {
-	const { contact } = props;
-
+export const ContactBlock: React.FC<ContactBlockProps> = ({ contact, deleteContact }) => {
+	const handleDelete = (e: React.MouseEvent) => {
+		e.preventDefault();
+		deleteContact(contact.id);
+	};
 	return (
 		<Link to={`/contacts/${contact.id}`} className="block hover:bg-gray-50">
 			<div className="flex items-center px-4 py-4 sm:px-6">
 				<div className="min-w-0 flex-1 flex items-center">
 					<div className="flex-shrink-0">
-						<ContactImage className="h-12 w-12 rounded-full" src={contact.pictureUrl} />
+						<ContactImage
+							className="h-12 w-12 rounded-full"
+							src={contact.pictureUrl}
+						/>
 					</div>
 					<div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
 						<div>
@@ -37,11 +46,6 @@ export const ContactBlock: React.FC<ContactBlockProps> = (props) => {
 						</div>
 						<div className="hidden md:block">
 							<div>
-								<p className="text-sm text-gray-900 sm:h-5 ">
-									{/* Created at */}
-									{/* {' '} */}
-									{/* <time dateTime="2020-01-07">{contact.createdAt}</time> */}
-								</p>
 								<p className="mt-2 flex items-center text-sm text-gray-500">
 									<MailIcon className="flex-shrink-0 mr-1.5 h-5 w-5" />
 									<span className="truncate">{contact.email}</span>
@@ -51,7 +55,7 @@ export const ContactBlock: React.FC<ContactBlockProps> = (props) => {
 					</div>
 				</div>
 				<div>
-					<ChevronRightIcon className="h-5 w-5 text-gray-400" />
+					<TrashIcon className="h-5 w-5 text-gray-400" onClick={e => handleDelete(e)} />
 				</div>
 			</div>
 		</Link>

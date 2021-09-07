@@ -32,11 +32,12 @@ export const fields = [
 ] as const;
 
 export const initialProps: ContactFormData = {
-	id: undefined,
 	firstName: '',
 	lastName: '',
 	phone: '',
 	email: '',
 	meta: {},
 	file: undefined,
+	id: '',
+	pictureUrl: '',
 };

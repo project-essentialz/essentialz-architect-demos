@@ -16,6 +16,16 @@ import architect from '../services/architect.service';
 
 export const HomePage: React.FC = () => {
 	const [contacts, setContacts] = useState<Contact[]>([]);
+	const [loading, setLoading] = useState(false);
+
+	const deleteContact = (id: string) => {
+		if (loading) return;
+		architect
+			.contacts
+			.delete(id)
+			.then(() => setContacts(pre => pre.filter(contact => contact.id !== id)))
+			.then(() => setLoading(false));
+	};
 
 	useEffect(() => {
 		architect.contacts
@@ -36,7 +46,7 @@ export const HomePage: React.FC = () => {
 					{
 						contacts.map(contact => (
 							<li key={`contact-${contact.id}`}>
-								<ContactBlock contact={contact} />
+								<ContactBlock contact={contact} deleteContact={deleteContact} />
 							</li>
 						))
 					}

@@ -37,7 +37,7 @@ export const EditPage: React.FC = () => {
 				const { url } = await architect.files.upload(file);
 				(contact as Contact).pictureUrl = url;
 			}
-			await architect.contacts.update(contact.id as string, contact);
+			await architect.contacts.update(contact.id, contact);
 			history.push('/');
 		} catch {
 			setLoading(false);

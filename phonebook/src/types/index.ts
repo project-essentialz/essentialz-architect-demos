@@ -1,5 +1,5 @@
 export type Contact = {
-	id?: string;
+	id: string;
 	pictureUrl: string;
 	firstName: string;
 	lastName: string;
@@ -10,4 +10,4 @@ export type Contact = {
 	createdAt?: string;
 }
 
-export type ContactFormData = Omit<Contact, 'pictureUrl'> & {file?: File}
+export type ContactFormData = Contact & {file?: File}
