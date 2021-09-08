@@ -9,11 +9,12 @@ import {
 
 import {
 	ArchitectAuthProviders,
+	ArchitectCredentials,
 } from 'architect-sdk/lib/core/auth';
 
 type AuthProps = {
-	onLogin: (email : string, password : string, provider : ArchitectAuthProviders, e : React.FormEvent<HTMLFormElement>, setLoading : (value : boolean) => void) => void;
-	onRegister: (email : string, password : string, provider : ArchitectAuthProviders, e : React.FormEvent<HTMLFormElement>, setLoading : (value : boolean) => void) => void;
+	onLogin: (credentials : ArchitectCredentials, provider : ArchitectAuthProviders, setLoading : (value : boolean) => void) => void;
+	onRegister: (credentials : ArchitectCredentials, provider : ArchitectAuthProviders, setLoading : (value : boolean) => void) => void;
 }
 
 export const Auth = (props : AuthProps) : React.ReactElement => {
