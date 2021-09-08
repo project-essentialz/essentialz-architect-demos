@@ -11,6 +11,7 @@ import {
 	Button,
 	FormWrapper,
 	Footer,
+	GoogleAuth,
 } from '.';
 
 import { FormProps } from '../types/form';
@@ -84,6 +85,11 @@ export const LoginForm = (props : FormProps) : React.ReactElement => {
 				{' '}
 				Login
 			</Button>
+			<GoogleAuth
+				onSuccess={(data) => {
+					onSubmit(data.credentials, data.provider, setisLoading);
+				}}
+			/>
 			<Footer
 				label="or register"
 			>
