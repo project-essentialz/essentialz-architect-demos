@@ -16,6 +16,7 @@ import {
 import { FormProps } from '../types/form';
 import {
 	ArchitectAuthProvider,
+	ArchitectCredentials,
 } from 'architect-sdk/lib/core/auth';
 
 const registerInputProps : InputProps[] = [
@@ -37,30 +38,33 @@ const registerInputProps : InputProps[] = [
 	},
 ];
 
+type Form = {
+	provider: ArchitectAuthProvider;
+	credentials: ArchitectCredentials;
+};
+
 export const RegisterForm = (props : FormProps) : React.ReactElement => {
 	const {
 		onSetForm,
 		onSubmit,
 	} = props;
-	const [formData, setFormData] = useState<Record<string, string>>({
-		email: '',
-		password: '',
-		provider: 'email',
+	const [formData, setFormData] = useState<Form>({
+		provider: 'email' as ArchitectAuthProvider,
+		credentials: {} as ArchitectCredentials,
 	});
 	const [isLoading, setisLoading] = useState<boolean>(false);
 
-	const handleInput = (e : React.FormEvent<HTMLInputElement>, inputName : string) => {
-		setFormData({ ...formData, [inputName]: e.currentTarget.value });
+	const handleInput = (inputName : string, inputValue : string) => {
+		setFormData(pre => ({ ...pre, credentials: { ...pre.credentials, [inputName]: inputValue } }));
 	};
 
 	return (
 		<FormWrapper
 			onSubmit={(e) => {
+				e.preventDefault();
 				onSubmit(
-					formData.email,
-					formData.password,
-					formData.provider as ArchitectAuthProvider,
-					e,
+					formData.credentials,
+					formData.provider,
 					setisLoading,
 				);
 			}}
@@ -68,7 +72,7 @@ export const RegisterForm = (props : FormProps) : React.ReactElement => {
 			{registerInputProps.map(inputProps => (
 				<Input
 					{...inputProps}
-					onChange={e => handleInput(e, inputProps.name || '')}
+					onChange={e => handleInput(inputProps.name || '', e.currentTarget.value)}
 				/>
 			))}
 			<Button

@@ -6,24 +6,18 @@ import {
 } from './containers';
 
 import client from './services/architect';
-import { ArchitectAuthProviders } from 'architect-sdk/lib/core/auth';
+import { ArchitectAuthProviders, ArchitectCredentials } from 'architect-sdk/lib/core/auth';
 
 const App = () : React.ReactElement => {
 	const [isAuthenthicated, setIsAuthenthicated] = useState<boolean>(client.isAuthenticated());
 
 	const handleLogin = (
-		email : string,
-		password : string,
+		credentials : ArchitectCredentials,
 		provider : ArchitectAuthProviders,
-		event : React.FormEvent<HTMLFormElement>,
 		setLoading: (value : boolean) => void,
 	) => {
-		event.preventDefault();
 		setLoading(true);
-		client.login({
-			email,
-			password,
-		}, provider)
+		client.login(credentials, provider)
 			.then(() => {
 				setLoading(false);
 				setIsAuthenthicated(client.isAuthenticated());
@@ -32,17 +26,13 @@ const App = () : React.ReactElement => {
 	};
 
 	const handleRegister = (
-		email : string,
-		password : string,
+		credentials : ArchitectCredentials,
 		provider : ArchitectAuthProviders,
-		event : React.FormEvent<HTMLFormElement>,
 		setLoading: (value : boolean) => void,
 	) => {
-		event.preventDefault();
 		setLoading(true);
 		client.users.create({
-			email,
-			password,
+			...credentials,
 			provider,
 		})
 			.then(() => setLoading(false))
