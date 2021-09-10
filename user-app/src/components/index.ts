@@ -6,3 +6,4 @@ export * from './login-form';
 export * from './button';
 export * from './register-form';
 export * from './footer';
+export * from './google-auth';
