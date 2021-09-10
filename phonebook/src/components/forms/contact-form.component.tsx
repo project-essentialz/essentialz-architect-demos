@@ -25,7 +25,10 @@ export const ContactForm: React.FC<ContactFormProps> = ({ contact, handleSubmit 
 	};
 
 	const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setForm(pre => ({ ...pre, file: e.target.files?.[0] }));
+		const file = e.target.files?.[0];
+		if (file && file.size < 1024 * 1024) {
+			setForm(pre => ({ ...pre, file: e.target.files?.[0] }));
+		}
 	};
 
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

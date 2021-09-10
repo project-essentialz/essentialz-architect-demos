@@ -65,7 +65,7 @@ const App = () : React.ReactElement => {
 			onLoad={getCurrentUser}
 			onLogout={logoutUser}
 		/>
-	) : (
+	) : ( 
 		<Auth
 			onLogin={handleLogin}
 			onRegister={handleRegister}
