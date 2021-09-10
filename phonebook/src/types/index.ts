@@ -1,5 +1,5 @@
 export type Contact = {
-	id?: string;
+	id: string;
 	pictureUrl: string;
 	firstName: string;
 	lastName: string;
@@ -9,3 +9,5 @@ export type Contact = {
 	updatedAt?: number;
 	createdAt?: string;
 }
+
+export type ContactFormData = Contact & {file?: File}
