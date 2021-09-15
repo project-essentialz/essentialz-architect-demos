@@ -14,6 +14,7 @@ import { Contact } from '../types/Contact';
 export class CreateContactComponent implements OnInit {
   _id: string | null = null;
   title: string | null = null;
+  loading = false;
 
   contactForm = this._formBuilder.group({
     firstName: '',
@@ -73,15 +74,20 @@ export class CreateContactComponent implements OnInit {
   async onSubmit(e: Event) {
     e.preventDefault();
     const { image, ...newContact } = this.contactForm.value;
-    if (image) {
-      const { url } = await this._architectService.uploadFile(image);
-      newContact.pictureUrl = url;
+    this.loading = true;
+    try {
+      if (image) {
+        const { url } = await this._architectService.uploadFile(image);
+        newContact.pictureUrl = url;
+      }
+      if (this._id) {
+        await this._architectService.updateContact(this._id, newContact);
+      } else {
+        await this._architectService.createContact(newContact);
+      }
+      this._router.navigate(['contacts']);
+    } catch (e) {
+      this.loading = false;
     }
-    if (this._id) {
-      await this._architectService.updateContact(this._id, newContact);
-    } else {
-      await this._architectService.createContact(newContact);
-    }
-    this._router.navigate(['contacts']);
   }
 }
