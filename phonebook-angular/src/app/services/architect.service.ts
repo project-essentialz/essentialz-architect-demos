@@ -11,7 +11,6 @@ import { ArchitectSchema } from '../types/ArchitectSchema';
   providedIn: 'root',
 })
 export class ArchitectService {
-  _isLoggedIn = false;
   _architectSDK: ArchitectServices<ArchitectSchema>;
   constructor() {
     this._architectSDK = client<ArchitectSchema>({
@@ -44,14 +43,10 @@ export class ArchitectService {
   }
 
   public async login() {
-    const res = await this._architectSDK.login(
-      environment.credentials,
-      'email',
-    );
-    this._isLoggedIn = true;
+    await this._architectSDK.login(environment.credentials, 'email');
   }
 
   public isLoggedIn() {
-    return this._isLoggedIn;
+    return this._architectSDK.isAuthenticated();
   }
 }

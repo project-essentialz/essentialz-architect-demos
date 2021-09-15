@@ -4,22 +4,27 @@ import { LoginComponent } from '../login/login.component';
 
 // Guards
 import { AuthGuard } from '../guard/auth.guard';
+import { LoginGuard } from '../guard/login.guard';
 
 export const routes = [
   {
     path: 'contact/:id',
     component: CreateContactComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'contact',
     component: CreateContactComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'contacts',
     component: ContactListComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
-  { path: '', component: LoginComponent },
+  {
+    path: '',
+    component: LoginComponent,
+    canActivate: [LoginGuard],
+  },
 ];
