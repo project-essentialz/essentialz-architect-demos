@@ -1,21 +1,16 @@
 import { Injectable } from '@angular/core';
-import client from 'architect-sdk';
-import { ArchitectServices } from 'architect-sdk/lib/core/types';
 import { environment } from '../../environments/environment';
+import {client} from '../../architectConfig'
 
 // Types
 import { Contact } from '../types/Contact';
-import { ArchitectSchema } from '../types/ArchitectSchema';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ArchitectService {
-  _architectSDK: ArchitectServices<ArchitectSchema>;
+  private _architectSDK = client;
   constructor() {
-    this._architectSDK = client<ArchitectSchema>({
-      baseUrl: environment.baseUrl,
-    });
   }
 
   public getContacts() {
