@@ -18,7 +18,6 @@ const login = async () => {
     console.log(e);
   }
 };
-console.log(architectSDK);
 </script>
 
 <template>
