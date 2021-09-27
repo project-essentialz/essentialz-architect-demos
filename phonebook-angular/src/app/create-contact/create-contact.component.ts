@@ -4,8 +4,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 // Service
 import { ArchitectService } from '../services/architect.service';
-// Types
-import { Contact } from '../types/Contact';
 
 @Component({
   selector: 'app-create-contact',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import {client} from '../../architectConfig'
+import { client } from '../../architectConfig';
 
 // Types
 import { Contact } from '../types/Contact';
@@ -9,8 +9,9 @@ import { Contact } from '../types/Contact';
   providedIn: 'root',
 })
 export class ArchitectService {
-  private _architectSDK = client;
+  _architectSDK;
   constructor() {
+    this._architectSDK = client;
   }
 
   public getContacts() {
@@ -37,8 +38,8 @@ export class ArchitectService {
     return this._architectSDK.files.upload(file);
   }
 
-  public async login() {
-    await this._architectSDK.login(environment.credentials, 'email');
+  public login() {
+    this._architectSDK.login(environment.credentials, 'email');
   }
 
   public isLoggedIn() {
