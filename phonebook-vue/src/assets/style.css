@@ -1,0 +1,46 @@
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+}
+.form-field > label {
+  font-size: 14px;
+  padding-left: 5px;
+}
+.form-field > input {
+  border: 1px solid rgb(216, 216, 216);
+  border-radius: 5px;
+  height: 30px;
+}
+.form-field > input::placeholder {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  text-indent: 5px;
+}
+.btn {
+  height: 35px;
+  min-width: 120px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+.btn:disabled {
+  background-color: rgb(74, 74, 243, 0.1);
+  cursor: default;
+}
+.btn-purple {
+  background-color: rgb(74, 74, 243);
+  color: white;
+}
+.btn-white {
+  background-color: whitesmoke;
+  color: gray;
+  border: 1px solid gainsboro;
+}
+
+.btn-danger {
+  background-color: rgb(219, 77, 77);
+  color: white;
+}
